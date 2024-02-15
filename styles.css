@@ -1,0 +1,195 @@
+/******************
+*** TIPOGRAFÍAS ***
+******************/
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=MedievalSharp&display=swap');
+
+/*************
+*** TEXTOS ***
+*************/
+h1,
+h2,
+#text,
+button,
+.stat,
+p,
+li {
+  /* font-family: 'Lobster', sans-serif; */
+  font-family: 'Shantell Sans', sans-serif;
+}
+
+.stat,
+button,
+#text,
+p,
+li {
+  font-size: 20px;
+}
+
+.noSeSepara {
+  white-space: nowrap;
+}
+
+/*********************************************
+*** ARREGLO PARA EL BOTÓN DE INSTRUCCIONES ***
+*********************************************/
+.doNotShow {
+  display: none;
+}
+.show {
+  display: block;
+}
+
+/**************
+*** ESTILOS ***
+**************/
+body {
+  background-color: #0a0a23;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+header > h1 {
+  color: #fff;
+  text-align: center;
+  font-size: 40px;
+}
+
+#text {
+  background-color: #0a0a23;
+  color: #ffffff;
+  padding: 20px;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#game {
+  max-width: 1400px;
+  width: 1400px;
+  background-color: #d8d6d6;
+  color: #ffffff;
+  margin: 30px 1.5rem 0px 1.5rem;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+#game > #stats,
+#game > #controls {
+  background-color: #fff;
+  margin-bottom: 5px;
+}
+
+#controls,
+#stats {
+  border: 1px solid #0a0a23;
+  padding: 10px;
+  color: #0a0a23;
+}
+
+#controls {
+  display: flex;
+  gap: 1rem;
+}
+
+#monsterStats {
+  display: none;
+  border: 1px solid #0a0a23;
+  padding: 5px;
+  color: #ffffff;
+  background-color: #c70d0d;
+}
+
+.stat {
+  padding-right: 10px;
+}
+
+button {
+  cursor: pointer;
+  color: #0a0a23;
+  background-color: #feac32;
+  background-image: linear-gradient(#fecc4c, #ffac33);
+  border: 3px solid #feac32;
+  border-radius: 5px;
+  box-shadow: 0px 0px 0px #000;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+button:hover {
+  box-shadow: 2px 2px 5px #000;
+}
+
+#instructionsButton {
+  background-color: #32eafe;
+  background-image: linear-gradient(#32eafe, #32a9fe);
+  border: 3px solid #32eafe;
+  font-size: 18px;
+}
+
+#logrosDesbloqueados {
+  max-width: 1400px;
+  width: 1400px;
+  background-color: #d8d6d6;
+  color: #000;
+  margin: 30px 1.5rem 0px 1.5rem;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/*
+############
+## FOOTER ##
+############
+*/
+/*Damos un padding al footer y lo centramos usando grid con place-content que sirve para centrar tanto en el eje vertical como en el horizontal (porque en este caso el footer solo tiene un elemento que ocupa toda una zelda)*/
+footer {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  background-color: var(--azulOscuro);
+}
+
+footer > p {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+}
+
+/*#####################################################################*/
+
+/*
+#############################
+#### MEDIA QUERY: 700px #####
+#############################
+*/
+
+@media (max-width: 1500px) {
+  #game,
+  #logrosDesbloqueados {
+    width: 1000px;
+  }
+}
+
+@media (max-width: 1100px) {
+  #game,
+  #logrosDesbloqueados {
+    width: 800px;
+  }
+}
+
+@media (max-width: 980px) {
+  .stat,
+  button,
+  #text,
+  p,
+  li {
+    font-size: 18px;
+  }
+}

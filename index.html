@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>RPG - Cazador de Dragones</title>
+  </head>
+  <body>
+    <header>
+      <h1>CAZADOR DE DRAGONES</h1>
+    </header>
+    <main>
+      <div id="game">
+        <div id="stats">
+          <span class="stat"
+            >XP: <strong><span id="xpText">0</span></strong></span
+          >
+          <span class="stat"
+            >Salud: <strong><span id="healthText">100</span></strong></span
+          >
+          <span class="stat noSeSepara">Oro: <strong><span id="goldText">50</span></strong></span>
+          <span class="stat noSeSepara">Armas: <strong><span id="numberOfWeaponsText">1</span></strong></span>
+          <span class="stat noSeSepara">Arma actual: <strong><span id="currentWeaponText">Palo</span></strong></span>
+          <button id="instructionsButton">Ver/Ocultar Instrucciones</button>
+        </div>
+        <div id="instructionsPanel" class="doNotShow">
+          <h2>Instrucciones y consejos:</h2>
+          <p>Combate y experiencia:</p>
+          <ul>
+            <li>Consigue experiencia venciendo enemigos.</li>
+            <li>Cuanta más XP, más plus de daño sumarás a tu arma.</li>
+            <li>Puedes esquivar el ataque de un enemigo o huir del combate.</li>
+            <li>El enemigo siempre ataca primero, por lo que siempre recibirás un hit antes de atacar.</li>
+            <li>Tus ataques pueden fallar.</li>
+          </ul>
+          <p>Uso y duración de las armas:</p>
+          <ul>
+            <li>Cada vez que compras un arma, esta se equipará automáticamente.</li>
+            <li>Siempre llevarás equipada el arma más potente que tengas.</li>
+            <li>Cuanto mejor sea el arma, más daño hará. Este daño se verá aumentado por tus puntos de experiencia.</li>
+            <li>Ten cuidado, tus armas pueden romperse y tendrás que reponerlas.</li>
+            <li>Cuando un arma se rompe, se equipa automáticamente la anterior en rando de daño.</li>
+          </ul>
+          <p>Daño por un golpe de los enemigos:</p>
+          <ul>
+            <li>Jabalí = -10 </li>
+            <li>Orco = -40</li>
+            <li>Dragón = -68</li>
+          </ul>
+          <p>Vida total de los enemigos:</p>
+          <ul>
+          <li>Jabalí = 15 </li>
+          <li>Orco = 60</li>
+          <li>Dragón = 300</li>
+          </ul>
+          <p>Experiencia tras vencer enemigo:</p>
+          <ul>
+          <li>Jabalí = +2XP </li>
+          <li>Orco = +8XP</li>
+          <li>Dragón = ¿?XP</li>
+          </ul>
+        </div>
+        <div id="controls">
+          <button id="button1">Ir a la tienda</button>
+          <button id="button2">Ir a la cueva</button>
+          <button id="button3">Salir del pueblo y enfrentar al Dragón</button>
+        </div>
+        <div id="monsterStats">
+          <span class="stat"
+            >Nombre del Monstruo: <strong><span id="monsterName"></span></strong
+          ></span>
+          <span class="stat"
+            >Salud: <strong><span id="monsterSalud"></span></strong
+          ></span>
+        </div>
+        <div id="text">
+          Hola guerrero, bienvenido a "Cazador de Dragones".<br /><br />
+          Un malvado dragón ronda la periferia de la aldea impidiendo que los
+          aldeanos salgan.
+          Los pocos valientes que lo han intentado se han
+          convertido en ceniza en un abrir y cerrar de ojos... Como último
+          aprendiz vivo del gran guerrero "ModBer" eres la última esperanza de
+          la gente para resolver esta situación.<br /><br />Llevas tiempo sin
+          entrenar y tu equipo es bastante pobre. Quizá deberías de entrenar un
+          poco y hacerte con un buen equipo antes de ir a enfentar al dragón,
+          aunque la decisión es tuya.<br /><br />Te encuentras en la plaza del
+          pueblo. Ves un letrero de madera que señala varias direcciones. En él
+          puedes leer: "Tienda", "Cuevas" y "Salida del Pueblo". ¿A dónde
+          quieres ir?<br /><br />NOTA: Utiliza los botones de arriba llevar a cabo tu aventura y exprime el juego hasta encontrar los 5 logros ocultos.
+        </div>
+      </div>
+      <div id="logrosDesbloqueados" class="doNotShow">
+        <h2>Encuentra los 5 logros de Cazador de Dragones:</h2>
+        <ul>
+          <li id="logro1" class="doNotShow">Logro 1: Derrotaste al Dragón <strong>|</strong> Palabra secreta = PIPOCHO</li>
+          <li id="logro2" class="doNotShow">Logro 2: Conseguiste 500 de oro <strong>|</strong> Palabra secreta = SENTAO</li>
+          <li id="logro3" class="doNotShow">Logro 3: Obtuviste la Espada Maestra <strong>|</strong> Palabra secreta = MÁSTER</li>
+          <li id="logro4" class="doNotShow">Logro 4: Encontraste el easter egg del JUEGO DE AZAR <strong>|</strong> Palabra secreta: RUPIAS</li>
+          <li id="logro5" class="doNotShow"><strong>Logro 5: </strong>Encontraste el easter egg de ONE PUNCH MAN <strong>|</strong> Palabra secreta: FOTÓN</li>
+        </ul>
+        <button id="borrarLocalStorageButton">Borrar mis logros</button>
+      </div>
+    </main>
+    <footer>
+      <p>&copy; Jose Luis Modroño 2024</p>
+    </footer>
+  </body>
+    <script src="./script.js"></script>
+  </body>
+</html>
