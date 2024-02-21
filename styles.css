@@ -54,10 +54,14 @@ body {
   margin: 0;
 }
 
-header > h1 {
-  color: #fff;
-  text-align: center;
-  font-size: 40px;
+header {
+  display: flex;
+  justify-content: center;
+}
+
+header > img {
+  width: 50%;
+  padding-top: 2rem;
 }
 
 #text {
