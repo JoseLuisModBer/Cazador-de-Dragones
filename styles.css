@@ -39,6 +39,10 @@ li {
   display: block;
 }
 
+#instructionsPanel {
+  color: #000;
+}
+
 /**************
 *** ESTILOS ***
 **************/
