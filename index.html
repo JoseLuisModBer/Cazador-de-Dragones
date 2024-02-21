@@ -2,6 +2,7 @@
 <html lang="es">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles.css" />
     <title>RPG - Cazador de Dragones</title>
   </head>
@@ -16,16 +17,16 @@
     <main>
       <div id="game">
         <div id="stats">
-          <span class="stat"
-            >XP: <strong><span id="xpText">0</span></strong></span
-          >
-          <span class="stat"
-            >Salud: <strong><span id="healthText">100</span></strong></span
-          >
-          <span class="stat noSeSepara">Oro: <strong><span id="goldText">50</span></strong></span>
-          <span class="stat noSeSepara">Armas: <strong><span id="numberOfWeaponsText">1</span></strong></span>
-          <span class="stat noSeSepara">Arma actual: <strong><span id="currentWeaponText">Palo</span></strong></span>
-          <button id="instructionsButton">Ver/Ocultar Instrucciones</button>
+          <div class="stats-A">
+            <span class="stat stat1">XP: <strong><span id="xpText">0</span></strong></span>
+            <span class="stat stat2">Salud: <strong><span id="healthText">100</span></strong></span>
+            <span class="stat stat3 noSeSepara">Oro: <strong><span id="goldText">50</span></strong></span>
+          </div>
+          <div class="stats-B">
+            <span class="stat noSeSepara">Armas: <strong><span id="numberOfWeaponsText">1</span></strong></span>
+            <span class="stat noSeSepara">Equipada: <strong><span id="currentWeaponText">Palo</span></strong></span>
+            <button id="instructionsButton">Instrucciones</button>
+          </div>
         </div>
         <div id="instructionsPanel" class="doNotShow">
           <h2>Instrucciones y consejos:</h2>
