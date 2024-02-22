@@ -272,7 +272,7 @@ footer > p {
 @media (max-width: 500px) {
   #game,
   #logrosDesbloqueados {
-    width: 300px;
+    width: 375px;
   }
 
   #stats {
@@ -283,10 +283,17 @@ footer > p {
 @media (max-width: 400px) {
   #game,
   #logrosDesbloqueados {
-    width: 250px;
+    width: 300px;
   }
 
   #stats {
     gap: 0rem;
+  }
+}
+
+@media (max-width: 330px) {
+  #game,
+  #logrosDesbloqueados {
+    width: 280px;
   }
 }
