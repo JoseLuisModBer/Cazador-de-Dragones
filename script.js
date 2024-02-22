@@ -222,6 +222,19 @@ function cambiarSrcDeImagen(nuevaUrl) {
   }
 }
 
+function cambiarSrcDeImagenArma(nuevaUrl) {
+  // Obtener el elemento img por su id
+  var imagen = document.getElementById('fotoArmaActual');
+
+  // Verificar si el elemento existe
+  if (imagen) {
+    // Cambiar la URL del atributo src
+    imagen.src = nuevaUrl;
+  } else {
+    console.error('El elemento img no se encontró con el ID proporcionado.');
+  }
+}
+
 /*------------------------------------------------------------------------------------------------------------*/
 
 function showInstructions() {
@@ -284,7 +297,19 @@ function buyWeapon() {
       inventory.push(newWeapon);
       text.innerText += ' En tu inventario tienes: ' + inventory;
       currentWeaponText.innerText = weapons[currentWeapon].name;
+      console.log('currentWeaponText', currentWeaponText);
       numberOfWeaponsText.innerText = inventory.length;
+      if (weapons[currentWeapon].name == 'palo') {
+        cambiarSrcDeImagenArma('/Medios/armas/palo.jpeg');
+      } else if (weapons[currentWeapon].name == 'daga') {
+        cambiarSrcDeImagenArma('/Medios/armas/daga.jpeg');
+      } else if (weapons[currentWeapon].name == 'martillo') {
+        cambiarSrcDeImagenArma('/Medios/armas/martillo.jpeg');
+      } else if (weapons[currentWeapon].name == 'espada') {
+        cambiarSrcDeImagenArma('/Medios/armas/espada.jpeg');
+      } else if (weapons[currentWeapon].name == 'Espada Maestra') {
+        cambiarSrcDeImagenArma('/Medios/estadosylogros/espadamaestra.jpeg');
+      }
     } else {
       text.innerText = 'No tienes suficiente oro para comprar nuevas armas.';
     }
@@ -311,6 +336,8 @@ function sellWeapon() {
       );
       text.innerText +=
         ' !MILAGRO! Tu espada ha comenzado a brillar y se ha vuelto indestructible. Cuenta la leyenda que se trata de la auténtica Espada Maestra.';
+      currentWeaponText.innerText = 'Espada Maestra';
+      currentWeaponText.style.color = 'blue';
       unlockAchievements('logro3'); // Llamamos a la función para desbloquear el logro 3
     }
   } else {
@@ -378,18 +405,15 @@ function attack() {
   if (Math.random() <= 0.1 && inventory.length !== 1) {
     const armaRota = inventory[inventory.length - 1];
     if (armaRota == 'daga') {
-      mostrarPopup(
-        '/Medios/armas/daga-rota.jpeg',
-        `Tu ${armaRota} se ha roto.`
-      );
+      mostrarPopup('/Medios/armas/daga-rota.jpg', `Tu ${armaRota} se ha roto.`);
     } else if (armaRota == 'martillo') {
       mostrarPopup(
-        '/Medios/armas/martillo-roto.jpeg',
+        '/Medios/armas/martillo-roto.jpg',
         `Tu ${armaRota} se ha roto.`
       );
     } else if (armaRota == 'espada') {
       mostrarPopup(
-        '/Medios/armas/espada-rota.jpeg',
+        '/Medios/armas/espada-rota.jpg',
         `Tu ${armaRota} se ha roto.`
       );
     }
