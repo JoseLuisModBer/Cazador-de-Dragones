@@ -89,10 +89,10 @@ const locations = [
     name: 'matar monstruo',
     'button text': [
       'Ir a la plaza del pueblo',
-      'Ir a la plaza del pueblo',
+      'Seguir luchando',
       'Ir a la plaza del pueblo',
     ],
-    'button functions': [goTown, goTown, easterEgg],
+    'button functions': [goTown, goCave, easterEgg],
     text: 'El monstruo grita "¡Arg!" al morir. Ganas puntos de experiencia y encuentras oro.',
   },
   {
@@ -159,6 +159,7 @@ function loadAchievements() {
 // Desbloquear logros y mostrarlos en la interfaz
 function unlockAchievements(logroId) {
   const logroElement = document.getElementById(logroId);
+  console.log('logroElement', logroElement);
   if (logroElement) {
     logroElement.classList.remove('doNotShow'); // Retiramos la clase que evita que se muestre el logro.
     logroElement.classList.add('show'); // Agregamos la clase para mostrar el logro
@@ -189,6 +190,40 @@ console.log('oro', oro);
 /*****************
  *** FUNCIONES ***
  ****************/
+
+function mostrarPopup(imagenUrl, texto) {
+  var popup = document.getElementById('custom-popup');
+  var imagen = document.getElementById('popup-image');
+  var textoElement = document.getElementById('popup-text');
+
+  // Asignar valores
+  imagen.src = imagenUrl;
+  textoElement.textContent = texto;
+
+  // Mostrar el popup
+  popup.style.display = 'block';
+}
+
+function cerrarPopup() {
+  var popup = document.getElementById('custom-popup');
+  popup.style.display = 'none';
+}
+
+function cambiarSrcDeImagen(nuevaUrl) {
+  // Obtener el elemento img por su id
+  var imagen = document.getElementById('fotoLocalizacionEnTexto');
+
+  // Verificar si el elemento existe
+  if (imagen) {
+    // Cambiar la URL del atributo src
+    imagen.src = nuevaUrl;
+  } else {
+    console.error('El elemento img no se encontró con el ID proporcionado.');
+  }
+}
+
+/*------------------------------------------------------------------------------------------------------------*/
+
 function showInstructions() {
   if (instructionsPanel.classList.contains('doNotShow')) {
     // Si la tiene, la remueve y agrega la clase 'show'
@@ -213,14 +248,17 @@ function update(location) {
 }
 
 function goTown() {
+  cambiarSrcDeImagen('Medios/localizaciones/pueblo.jpeg');
   update(locations[0]);
 }
 
 function goStore() {
+  cambiarSrcDeImagen('/Medios/localizaciones/tendero.jpeg');
   update(locations[1]);
 }
 
 function goCave() {
+  cambiarSrcDeImagen('/Medios/localizaciones/cueva.jpeg');
   update(locations[2]);
 }
 
@@ -267,8 +305,12 @@ function sellWeapon() {
     currentWeaponText.innerText = weapons[currentWeapon].name;
     numberOfWeaponsText.innerText = inventory.length;
     if (inventory.length == 1 && inventory[0] === 'espada') {
+      mostrarPopup(
+        '/Medios/estadosylogros/espadamaestra.jpeg',
+        `LOGRO DESBLOQUEADO - Tu espada ha comenzado a brillar y se ha vuelto indestructible. Cuenta la leyenda que se trata de la auténtica Espada Maestra. - (Revisa tu lista de logros en la parte inferior del juego).`
+      );
       text.innerText +=
-        ' !MILAGRO! Tu espada ha comenzado a brillar y se ha vuelto indestructible siempre y cuando no adquieras ningún arma más.';
+        ' !MILAGRO! Tu espada ha comenzado a brillar y se ha vuelto indestructible. Cuenta la leyenda que se trata de la auténtica Espada Maestra.';
       unlockAchievements('logro3'); // Llamamos a la función para desbloquear el logro 3
     }
   } else {
@@ -277,15 +319,21 @@ function sellWeapon() {
 }
 
 function ifYouAreRich() {
+  mostrarPopup(
+    '/Medios/estadosylogros/dinero.jpeg',
+    `LOGRO DESBLOQUEADO - Has conseguido más de 500 monedas de oro. - (Revisa tu lista de logros en la parte inferior del juego).`
+  );
   unlockAchievements('logro2'); // Llamamos a la función para desbloquear el logro 2
 }
 
 function fightSlime() {
+  cambiarSrcDeImagen('/Medios/personajes/jabali.jpeg');
   fighting = 0;
   goFight();
 }
 
 function fightBeast() {
+  cambiarSrcDeImagen('/Medios/personajes/orco.jpeg');
   fighting = 1;
   goFight();
 }
@@ -295,6 +343,7 @@ function fightDragon() {
   if (xp === 0 && currentWeapon === 0 && inventory.length === 1) {
     alternativeWinGame(); // Llamamos a una función alternativa a winGame
   } else {
+    cambiarSrcDeImagen('/Medios/personajes/dragon.jpeg');
     fighting = 2;
     goFight();
   }
@@ -325,7 +374,25 @@ function attack() {
   } else if (monsterSalud <= 0) {
     fighting === 2 ? winGame() : defeatMonster();
   }
+
   if (Math.random() <= 0.1 && inventory.length !== 1) {
+    const armaRota = inventory[inventory.length - 1];
+    if (armaRota == 'daga') {
+      mostrarPopup(
+        '/Medios/armas/daga-rota.jpeg',
+        `Tu ${armaRota} se ha roto.`
+      );
+    } else if (armaRota == 'martillo') {
+      mostrarPopup(
+        '/Medios/armas/martillo-roto.jpeg',
+        `Tu ${armaRota} se ha roto.`
+      );
+    } else if (armaRota == 'espada') {
+      mostrarPopup(
+        '/Medios/armas/espada-rota.jpeg',
+        `Tu ${armaRota} se ha roto.`
+      );
+    }
     text.innerText += ' Tu ' + inventory.pop() + ' se ha roto.';
     currentWeapon--;
     numberOfWeaponsText.innerText = inventory.length;
@@ -360,6 +427,10 @@ function lose() {
 }
 
 function winGame() {
+  mostrarPopup(
+    '/Medios/estadosylogros/vencerdragon.jpeg',
+    `LOGRO DESBLOQUEADO - Enhorabuena, derrotaste al dragón. - (Revisa tu lista de logros en la parte inferior del juego).`
+  );
   update(locations[6]);
   unlockAchievements('logro1'); // Llamamos a la función para desbloquear el logro 1
 }
@@ -380,6 +451,10 @@ function restart() {
  *** EASTER EGG (ONE PUNCH MAN) ***
  *********************************/
 function alternativeWinGame() {
+  mostrarPopup(
+    '/Medios/estadosylogros/onepunchman.jpeg',
+    `LOGRO DESBLOQUEADO - Enhorabuena, te has bajado al dragón con un buen puñetazo al estilo Saitama. ¡Eres de lo que no hay! - (Revisa tu lista de logros en la parte inferior del juego).`
+  );
   update(locations[8]);
   unlockAchievements('logro5'); // Llamamos a la función para desbloquear el logro 5
 }
@@ -388,6 +463,11 @@ function alternativeWinGame() {
  *** EASTER EGG (JUEGO DE AZAR) ***
  *********************************/
 function easterEgg() {
+  mostrarPopup(
+    '/Medios/localizaciones/azar.jpeg',
+    `NUEVO LOGRO - Has encontrado el Easter Egg JUEGO DE AZAR. - (Revisa tu lista de logros en la parte inferior del juego).`
+  );
+  cambiarSrcDeImagen('/Medios/localizaciones/juego-de-azar.jpeg');
   update(locations[7]);
   unlockAchievements('logro4'); // Llamamos a la función para desbloquear el logro 4
 }

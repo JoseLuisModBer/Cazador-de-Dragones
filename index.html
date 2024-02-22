@@ -8,23 +8,67 @@
   </head>
   <body>
     <header>
-      <img
-      id="logo-pokepedia"
-      src="https://fontmeme.com/permalink/240215/c2afe74671520d16feb8a53c69dd73e7.png"
-      alt="logo-pokepedia"
+    <img
+      id="logo-cazador-de-dragones"
+      src="https://fontmeme.com/permalink/240222/914bbaab9a1d7f5d7955c0aaeaeab256.png"
+      alt="logo-cazador-de-dragones"
     ></img>
     </header>
+
     <main>
+      <!-- Popup personalizado -->
+<div id="custom-popup">
+  <img id="popup-image" src="" alt="Popup Image">
+  <p id="popup-text"></p>
+  <button onclick="cerrarPopup()">Aceptar</button>
+</div>
+      
       <div id="game">
         <div id="stats">
           <div class="stats-A">
-            <span class="stat stat1">XP: <strong><span id="xpText">0</span></strong></span>
-            <span class="stat stat2">Salud: <strong><span id="healthText">100</span></strong></span>
-            <span class="stat stat3 noSeSepara">Oro: <strong><span id="goldText">50</span></strong></span>
+            <span class="stat stat1">XP:&nbsp;<strong><span id="xpText">0</span></strong></span>
+            <span class="stat stat2">
+              <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="icon icon-tabler icon-tabler-heart"
+              width="25"
+              height="25"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="#ff2825"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+            </svg>&nbsp;
+            <strong><span id="healthText">100</span></strong>
+          </span>
+            <span class="stat stat3 noSeSepara">
+              <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="icon icon-tabler icon-tabler-coin"
+              width="25"
+              height="25"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="#ff9300"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+              <path d="M14.8 9a2 2 0 0 0 -1.8 -1h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1 -1.8 -1" />
+              <path d="M12 7v10" />
+            </svg>&nbsp;
+              <strong><span id="goldText">50</span></strong>&nbsp;
+            </span>
           </div>
           <div class="stats-B">
-            <span class="stat noSeSepara">Armas: <strong><span id="numberOfWeaponsText">1</span></strong></span>
-            <span class="stat noSeSepara">Equipada: <strong><span id="currentWeaponText">Palo</span></strong></span>
+            <span class="stat noSeSepara">Armas:&nbsp;<strong><span id="numberOfWeaponsText">1</span></strong></span>
+            <span class="stat noSeSepara">Equipada:&nbsp;<strong><span id="currentWeaponText">Palo</span></strong></span>
             <button id="instructionsButton">Instrucciones</button>
           </div>
         </div>
@@ -70,6 +114,7 @@
           <button id="button2">Ir a la cueva</button>
           <button id="button3">Salir del pueblo y enfrentar al Dragón</button>
         </div>
+
         <div id="monsterStats">
           <span class="stat"
             >Nombre del Monstruo: <strong><span id="monsterName"></span></strong
@@ -78,32 +123,37 @@
             >Salud: <strong><span id="monsterSalud"></span></strong
           ></span>
         </div>
-        <div id="text">
-          Hola guerrero, bienvenido a "Cazador de Dragones".<br /><br />
-          Un malvado dragón ronda la periferia de la aldea impidiendo que los
-          aldeanos salgan.
-          Los pocos valientes que lo han intentado se han
-          convertido en ceniza en un abrir y cerrar de ojos... Como último
-          aprendiz vivo del gran guerrero "ModBer" eres la última esperanza de
-          la gente para resolver esta situación.<br /><br />Llevas tiempo sin
-          entrenar y tu equipo es bastante pobre. Quizá deberías de entrenar un
-          poco y hacerte con un buen equipo antes de ir a enfentar al dragón,
-          aunque la decisión es tuya.<br /><br />Te encuentras en la plaza del
-          pueblo. Ves un letrero de madera que señala varias direcciones. En él
-          puedes leer: "Tienda", "Cuevas" y "Salida del Pueblo". ¿A dónde
-          quieres ir?<br /><br />NOTA: Utiliza los botones de arriba llevar a cabo tu aventura y exprime el juego hasta encontrar los 5 logros ocultos.
+        <div id="contenedor-fotoytexto">
+          <img id="fotoLocalizacionEnTexto" src="/Medios/personajes/protagonista.jpeg" alt="foto" />
+          <div id="text">
+            Hola guerrero, bienvenido a "Cazador de Dragones".<br /><br />
+            Un malvado dragón ronda la periferia de la aldea impidiendo que los
+            aldeanos salgan.
+            Los pocos valientes que lo han intentado se han
+            convertido en ceniza en un abrir y cerrar de ojos... Como último
+            aprendiz vivo del gran guerrero "ModBer" eres la última esperanza de
+            la gente para resolver esta situación.<br /><br />Llevas tiempo sin
+            entrenar y tu equipo es bastante pobre. Quizá deberías de entrenar un
+            poco y hacerte con un buen equipo antes de ir a enfentar al dragón,
+            aunque la decisión es tuya.<br /><br />Te encuentras en la plaza del
+            pueblo. Ves un letrero de madera que señala varias direcciones. En él
+            puedes leer: "Tienda", "Cuevas" y "Salida del Pueblo". ¿A dónde
+            quieres ir?<br /><br />NOTA: Utiliza los botones de arriba llevar a cabo tu aventura y exprime el juego hasta encontrar los 5 logros ocultos.
+          </div>
         </div>
       </div>
       <div id="logrosDesbloqueados" class="doNotShow">
         <h2>Encuentra los 5 logros de Cazador de Dragones:</h2>
-        <ul>
-          <li id="logro1" class="doNotShow">Logro 1: Derrotaste al Dragón <strong>|</strong> Palabra secreta = PIPOCHO</li>
-          <li id="logro2" class="doNotShow">Logro 2: Conseguiste 500 de oro <strong>|</strong> Palabra secreta = SENTAO</li>
-          <li id="logro3" class="doNotShow">Logro 3: Obtuviste la Espada Maestra <strong>|</strong> Palabra secreta = MÁSTER</li>
-          <li id="logro4" class="doNotShow">Logro 4: Encontraste el easter egg del JUEGO DE AZAR <strong>|</strong> Palabra secreta: RUPIAS</li>
-          <li id="logro5" class="doNotShow"><strong>Logro 5: </strong>Encontraste el easter egg de ONE PUNCH MAN <strong>|</strong> Palabra secreta: FOTÓN</li>
+        <ul class="ul-de-logros">
+          <li id="logro1" class="doNotShow"><strong>Logro 1: </strong>Derrotaste al Dragón <strong>|</strong> <span class="palabra-secreta">Palabra secreta = PIPOCHO</span></li>
+          <li id="logro2" class="doNotShow"><strong>Logro 2: </strong>Conseguiste 500 de oro <strong>|</strong> <span class="palabra-secreta">Palabra secreta = SENTAO</span></li>
+          <li id="logro3" class="doNotShow"><strong>Logro 3: </strong>Obtuviste la Espada Maestra <strong>|</strong> <span class="palabra-secreta">Palabra secreta = MÁSTER</span></li>
+          <li id="logro4" class="doNotShow"><strong>Logro 4: </strong>Encontraste el easter egg del JUEGO DE AZAR <strong>|</strong> <span class="palabra-secreta">Palabra secreta: RUPIAS</span></li>
+          <li id="logro5" class="doNotShow"><strong>Logro 5: </strong>Encontraste el easter egg de ONE PUNCH MAN <strong>|</strong> <span class="palabra-secreta">Palabra secreta: FOTÓN</span></li>
         </ul>
-        <button id="borrarLocalStorageButton">Borrar mis logros</button>
+        <div class="contenedor-boton-borrarlocalstorage">
+          <button id="borrarLocalStorageButton">Borrar mis logros</button>
+        </div>
       </div>
     </main>
     <footer>

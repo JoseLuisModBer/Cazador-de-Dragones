@@ -7,7 +7,7 @@ Cazador de Dragones by ModBer.
 ## Índice
 
 - [Descripción](#descripción)
-- [Lenguajes usados](#lenguajes-usados)
+- [Lenguajes y tecnologías usadas](#lenguajes-usados)
 - [Autor](#autor)
 - [Inspiración](#inspiración)
 
@@ -15,9 +15,11 @@ Cazador de Dragones by ModBer.
 
 - Se trata de un videojuego estilo RPG de texto.
 
-## Lenguajes usados
+## Lenguajes y tecnologías usadas
 
 - Esta app es un proyecto personal que he creado para practicar usando HTML, CSS y JAVASCRIPT puros. En esta ocasión no he querido llevar el proyecto a REACT para obligarme a trabajar con Vanilla y forzarme a recordar conceptos.
+
+- Las imágenes han sido realizadas con la IA Copilot.
 
 ## Autor
 
