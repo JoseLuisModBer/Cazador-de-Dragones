@@ -82,8 +82,8 @@ const locations = [
   },
   {
     name: 'lucha',
-    'button text': ['Atacar', 'Esquivar', 'Huir'],
-    'button functions': [attack, dodge, goTown],
+    'button text': ['Atacar', 'Intentar Parry', 'Huir'],
+    'button functions': [playerAttack, playerDodge, goTown],
     text: 'Te enfrentas a un monstruo.',
   },
   {
@@ -142,6 +142,7 @@ borrarLocalStorageButton.onclick = borrarLocalStorage;
 loadAchievements();
 function loadAchievements() {
   const achievements = JSON.parse(localStorage.getItem('achievements')) || {};
+  /*   console.log('achievements', achievements); */
   for (const key in achievements) {
     if (achievements.hasOwnProperty(key) && achievements[key]) {
       const logroElement = document.getElementById(key);
@@ -218,7 +219,7 @@ function cambiarSrcDeImagen(nuevaUrl) {
   }
 }
 
-function cambiarSrcDeImagenArma(nuevaUrl) {
+/* function cambiarSrcDeImagenArma(nuevaUrl) {
   // Obtener el elemento img por su id
   var imagen = document.getElementById('fotoArmaActual');
 
@@ -229,7 +230,7 @@ function cambiarSrcDeImagenArma(nuevaUrl) {
   } else {
     console.error('El elemento img no se encontró con el ID proporcionado.');
   }
-}
+} */
 
 /*------------------------------------------------------------------------------------------------------------*/
 
@@ -342,6 +343,7 @@ function sellWeapon() {
       currentWeaponText.innerText = 'Espada Maestra';
       currentWeaponText.style.color = 'blue';
       unlockAchievements('logro3'); // Llamamos a la función para desbloquear el logro 3
+      pudeQueTeHayasPasadoElJuego();
     }
   } else {
     text.innerText = 'No puedes vender tu única arma!';
@@ -354,6 +356,7 @@ function ifYouAreRich() {
     `LOGRO DESBLOQUEADO\n\n Has conseguido más de 500 monedas de oro.\n\n (Revisa tu lista de logros en la parte inferior del juego).`
   );
   unlockAchievements('logro2'); // Llamamos a la función para desbloquear el logro 2
+  pudeQueTeHayasPasadoElJuego();
 }
 
 function fightSlime() {
@@ -380,20 +383,154 @@ function fightDragon() {
 }
 
 function goFight() {
-  update(locations[3]);
   monsterSalud = monsters[fighting].salud;
   monsterStats.style.display = 'block';
   monsterName.innerText = monsters[fighting].name;
   monsterSaludText.innerText = monsterSalud;
+
+  text.innerText = `¡Te enfrentas a un ${monsters[fighting].name}!\n\n`;
+
+  monsterAttack();
 }
 
-function attack() {
+function monsterAttack() {
+  text.innerText = `El ${monsters[fighting].name} te ataca.\n\n`;
+
+  // Mostrar opciones al jugador
+  text.innerText += '¿Qué quieres hacer?\n';
+  update(locations[3]);
+}
+
+function playerAttack() {
+  // Calcular daño del monstruo
+  const monsterHit = getMonsterAttackValue(monsters[fighting].level);
+  // Reducir la salud del jugador
+  salud -= monsterHit;
+  healthText.innerText = salud;
+  // Mostrar resultado del ataque del monstruo
+  text.innerText = `¡El ${monsters[fighting].name} te ha infligido ${monsterHit} puntos de daño!\n\n`;
+  if (salud <= 0) {
+    lose();
+  } else {
+    // Mostrar resultado del ataque del jugador
+    text.innerText += `Atacas al ${monsters[fighting].name} con tu ${weapons[currentWeapon].name}.`;
+
+    if (isMonsterHit()) {
+      // Calcular el daño del jugador
+      const thePlayerDamageText =
+        weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
+      const thePlayerDamage = (monsterSalud -= thePlayerDamageText);
+      monsterSaludText.innerText = monsterSalud;
+
+      text.innerText += ` ¡Has infligido ${thePlayerDamageText} puntos de daño!\n\n`;
+
+      if (Math.random() <= 0.1 && inventory.length !== 1) {
+        const armaRota = inventory[inventory.length - 1];
+        if (armaRota == 'daga') {
+          mostrarPopup(
+            '/Medios/armas/daga-rota.jpg',
+            `Tu ${armaRota} se ha roto.`
+          );
+        } else if (armaRota == 'martillo') {
+          mostrarPopup(
+            '/Medios/armas/martillo-roto.jpg',
+            `Tu ${armaRota} se ha roto.`
+          );
+        } else if (armaRota == 'espada') {
+          mostrarPopup(
+            '/Medios/armas/espada-rota.jpg',
+            `Tu ${armaRota} se ha roto.`
+          );
+        }
+        text.innerText += ' Tu ' + inventory.pop() + ' se ha roto.';
+        currentWeapon--;
+        numberOfWeaponsText.innerText = inventory.length;
+        currentWeaponText.innerText = weapons[currentWeapon].name;
+      }
+    } else {
+      text.innerText += ' Pero has fallado.\n\n';
+    }
+
+    // Verificar si el monstruo ha sido derrotado
+    if (monsterSalud <= 0) {
+      fighting === 2 ? winGame() : defeatMonster();
+    } else {
+      // Turno del monstruo después del ataque del jugador
+      monsterAttack();
+    }
+  }
+}
+
+function playerDodge() {
+  // Determinar si el jugador esquiva con éxito
+  const dodgeSuccess = Math.random() <= 0.5 + xp / 100;
+
+  if (dodgeSuccess) {
+    text.innerText = 'Haces un parry al ' + monsters[fighting].name + '.\n\n';
+    // Mostrar resultado del ataque del jugador
+    text.innerText += `Atacas al ${monsters[fighting].name} con tu ${weapons[currentWeapon].name}.`;
+
+    if (isMonsterHit()) {
+      // Calcular el daño del jugador
+      const thePlayerDamageText =
+        weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
+      const thePlayerDamage = (monsterSalud -= thePlayerDamageText);
+      monsterSaludText.innerText = monsterSalud;
+
+      text.innerText += ` ¡Has infligido ${thePlayerDamageText} puntos de daño con tu parry!\n\n`;
+
+      if (Math.random() <= 0.1 && inventory.length !== 1) {
+        const armaRota = inventory[inventory.length - 1];
+        if (armaRota == 'daga') {
+          mostrarPopup(
+            '/Medios/armas/daga-rota.jpg',
+            `Tu ${armaRota} se ha roto.`
+          );
+        } else if (armaRota == 'martillo') {
+          mostrarPopup(
+            '/Medios/armas/martillo-roto.jpg',
+            `Tu ${armaRota} se ha roto.`
+          );
+        } else if (armaRota == 'espada') {
+          mostrarPopup(
+            '/Medios/armas/espada-rota.jpg',
+            `Tu ${armaRota} se ha roto.`
+          );
+        }
+        text.innerText += ' Tu ' + inventory.pop() + ' se ha roto.';
+        currentWeapon--;
+        numberOfWeaponsText.innerText = inventory.length;
+        currentWeaponText.innerText = weapons[currentWeapon].name;
+      }
+    } else {
+      text.innerText += ' Pero has fallado tu contraataque.\n\n';
+    }
+  } else {
+    text.innerText = `No consigues evitar el ataque del ${monsters[fighting].name}.`;
+    // Calcular daño del monstruo
+    const monsterHit = getMonsterAttackValue(monsters[fighting].level);
+    // Reducir la salud del jugador
+    salud -= monsterHit;
+    healthText.innerText = salud;
+    // Mostrar resultado del ataque del monstruo
+    text.innerText += `¡El ${monsters[fighting].name} te ha infligido ${monsterHit} puntos de daño!\n\n`;
+    if (salud <= 0) {
+      lose();
+    }
+  }
+
+  // Turno del monstruo después del intento de esquiva
+  monsterAttack();
+}
+
+/*------------------------------------------ */
+
+/*function attack() {
   text.innerText = 'El ' + monsters[fighting].name + ' te ataca.\n\n';
   salud -= getMonsterAttackValue(monsters[fighting].level);
 
   text.innerText += ' Tú le atacas con tu ' + weapons[currentWeapon].name + '.';
-  /*En primer lugar se calcula si aciertas el ataque o no*/
-  /*En segundo lugar, el daño que haces es el resultado de sumar el poder de tu arma actual + un número aleatorio entre 0 y 1 por tu xp + 1. Es decir, cuanta más xp tengas y mejor sea tu arma más poderoso es tu ataque. */
+
   if (isMonsterHit()) {
     monsterSalud -=
       weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
@@ -402,7 +539,7 @@ function attack() {
   }
   healthText.innerText = salud;
   monsterSaludText.innerText = monsterSalud;
-  /*Si tu salud es 0 mueres y pierdes. Si la salud del monstruo es 0 y es el dragón, ganas el juego. Si no vences al enemigo y el juego continúa.  */
+
   if (salud <= 0) {
     lose();
   } else if (monsterSalud <= 0) {
@@ -429,7 +566,7 @@ function attack() {
     numberOfWeaponsText.innerText = inventory.length;
     currentWeaponText.innerText = weapons[currentWeapon].name;
   }
-}
+}*/
 
 /*El daño que te hace el monstruo el resultado de multiplicar el nivel del enemigo * 5 y restarle el resultado de multiplicar un número aleatorio entre 0 y 1 por tu xp. Es decir, cuanto más nivel tenga más te quita pero cuanto más nivel tengas tú más reduces el daño que te hace. */
 function getMonsterAttackValue(level) {
@@ -443,9 +580,9 @@ function isMonsterHit() {
   return Math.random() > 0.2 || salud < 20;
 }
 
-function dodge() {
+/* function dodge() {
   text.innerText = 'Has esquivado el ataque del ' + monsters[fighting].name;
-}
+} */
 
 function defeatMonster() {
   oro += Math.floor(monsters[fighting].level * 6.7);
@@ -470,6 +607,7 @@ function winGame() {
   );
   update(locations[6]);
   unlockAchievements('logro1'); // Llamamos a la función para desbloquear el logro 1
+  pudeQueTeHayasPasadoElJuego();
 }
 
 function restart() {
@@ -495,6 +633,7 @@ function alternativeWinGame() {
   cambiarSrcDeImagen('/Medios/estadosylogros/onepunchman.jpeg');
   update(locations[8]);
   unlockAchievements('logro5'); // Llamamos a la función para desbloquear el logro 5
+  pudeQueTeHayasPasadoElJuego();
 }
 
 /**********************************
@@ -508,6 +647,7 @@ function easterEgg() {
   cambiarSrcDeImagen('/Medios/localizaciones/juego-de-azar.jpeg');
   update(locations[7]);
   unlockAchievements('logro4'); // Llamamos a la función para desbloquear el logro 4
+  pudeQueTeHayasPasadoElJuego();
 }
 
 function pickTwo() {
@@ -544,5 +684,33 @@ function pick(guess) {
     if (salud <= 0) {
       lose();
     }
+  }
+}
+
+/********************************************
+ *** COMRPOBAR SI TIENES TODOS LOS LOGROS ***
+ *******************************************/
+function verificarLogrosDesbloqueados() {
+  // Obtén todos los elementos <li> que representan los logros
+  const logros = document.querySelectorAll('.ul-de-logros li');
+
+  // Verifica si todos los logros tienen la clase "show"
+  const todosDesbloqueados = Array.from(logros).every((logro) =>
+    logro.classList.contains('show')
+  );
+
+  // Retorna el resultado
+  return todosDesbloqueados;
+}
+
+function pudeQueTeHayasPasadoElJuego() {
+  const todosLogrosDesbloqueados = verificarLogrosDesbloqueados();
+
+  if (todosLogrosDesbloqueados) {
+    // Aquí puedes realizar acciones si todos los logros están desbloqueados
+    console.log('¡Todos los logros están desbloqueados!');
+  } else {
+    // Aquí puedes realizar acciones si no todos los logros están desbloqueados
+    console.log('Aún no has desbloqueado todos los logros.');
   }
 }
