@@ -31,3 +31,10 @@ mostrarPopup(
   '/Medios/estadosylogros/espadamaestra.jpeg',
   `!MILAGRO! Tu espada ha comenzado a brillar y se ha vuelto indestructible. Cuenta la leyenda que se trata de la auténtica Espada Maestra.`
 );
+
+cambiarSrcDeImagenArma('/Medios/armas/palo.jpeg');
+cambiarSrcDeImagenArma('/Medios/armas/daga.jpeg');
+cambiarSrcDeImagenArma('/Medios/armas/martillo.jpeg');
+cambiarSrcDeImagenArma('/Medios/armas/espada.jpeg');
+
+currentWeaponText.style.color = 'blue';

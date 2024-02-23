@@ -25,6 +25,7 @@ const xpText = document.querySelector('#xpText');
 const healthText = document.querySelector('#healthText');
 const goldText = document.querySelector('#goldText');
 const currentWeaponText = document.querySelector('#currentWeaponText');
+currentWeaponText.style.color = 'black';
 const numberOfWeaponsText = document.querySelector('#numberOfWeaponsText');
 const monsterStats = document.querySelector('#monsterStats');
 const monsterName = document.querySelector('#monsterName');
@@ -57,7 +58,7 @@ const locations = [
     name: 'plaza del pueblo',
     'button text': ['Ir a la tienda', 'Ir a la cueva', 'Enfrentar al Dragón'],
     'button functions': [goStore, goCave, fightDragon],
-    text: 'Estás en la plaza del pueblo. Ves un letrero de madera que señala varias direcciones. En él puedes leer: "Tienda", "Cuevas" y "Salida del Pueblo". ¿A dónde quieres ir?',
+    text: 'Estás en la plaza del pueblo.\n\n Ves un letrero de madera que señala varias direcciones. En él puedes leer: "Tienda", "Cuevas" y "Salida del Pueblo".\n\n ¿A dónde quieres ir?',
   },
   {
     name: 'Tienda',
@@ -77,7 +78,7 @@ const locations = [
       'Ir a la plaza del pueblo',
     ],
     'button functions': [fightSlime, fightBeast, goTown],
-    text: 'Has entrado en la cueva pero... ¡está plagada de monstruos! ¿Decides pelear o huyes de nuevo al pueblo?',
+    text: 'Has entrado en la cueva pero... ¡está plagada de monstruos!\n\n ¿Decides pelear o huyes de nuevo al pueblo?',
   },
   {
     name: 'lucha',
@@ -93,31 +94,31 @@ const locations = [
       'Ir a la plaza del pueblo',
     ],
     'button functions': [goTown, goCave, easterEgg],
-    text: 'El monstruo grita "¡Arg!" al morir. Ganas puntos de experiencia y encuentras oro.',
+    text: 'El monstruo grita "¡Arg!" al morir.\n\n Ganas puntos de experiencia y encuentras oro.',
   },
   {
     name: 'perder',
     'button text': ['REJUGAR?', 'REJUGAR?', 'REJUGAR?'],
     'button functions': [restart, restart, restart],
-    text: 'Has muerto. ☠️ La última esperanza para vencer al malvado dragón se ha esfumado con tu deceso. Los aldeanos han perdido la esperanza. Con el paso del tiempo algunos mueren lentamente de inanición mientras que otros deciden acabar con su vida de formas diversas. Finalmente el pueblo es devorado por las llamas del dragón y este se marcha en busca de un nuevo pueblo que destruir.',
+    text: 'Has muerto. ☠️ \n\n La última esperanza para vencer al malvado dragón se ha esfumado con tu deceso y los aldeanos han perdido la esperanza.\n\n Con el paso del tiempo algunos mueren lentamente de inanición, mientras que otros deciden acabar con su vida de formas diversas.\n\n Finalmente el pueblo es devorado por las llamas del dragón y este se marcha en busca de un nuevo pueblo que destruir.',
   },
   {
     name: 'ganar',
     'button text': ['REJUGAR?', 'REJUGAR?', 'REJUGAR?'],
     'button functions': [restart, restart, restart],
-    text: '¡Has vencido al malvado dragón! Los aldeanos no se lo pueden creer. Al final tú, el jóven discípulo del gran guerrero ModBer has dado la talla, demostrando tu valía, valentía y honor. El pueblo entero vitorea tus hazañas y se inician los preparativos para una gran fiesta en tu honor. 🎉',
+    text: '¡Has vencido al malvado dragón!\n\n Los aldeanos no se lo pueden creer. Al final tú, el jóven discípulo del gran guerrero ModBer has dado la talla, demostrando tu valía, valentía y honor.\n\n El pueblo entero vitorea tus hazañas y se inician los preparativos para una gran fiesta en tu honor. 🎉',
   },
   {
     name: 'easter egg',
     'button text': ['2', '8', 'Ir a la plaza del pueblo?'],
     'button functions': [pickTwo, pickEight, goTown],
-    text: '¡ATENCIÓN! Desde un callejón oscuro, uno de los aldeanos te hace un gesto para que te acerques. Te propone un juego. Él va a elegir 10 números del 0 al 10 que serán los 10 números ganadores. Te dará a elegir entre dos números y uno de estos dos números será uno de los 10 ganadores y el otro no. Tendrás que elegir uno de esos dos números. Si aceritas te dará 20 monedas de oro. Si pierdes te dará un puñetazo y perderás 10 puntos de salud. Puedes jugar hasta hacerte rico, hasta morir por los golpes o hasta que decidas marcharte.',
+    text: '¡ATENCIÓN!\n Desde un callejón oscuro, uno de los aldeanos te hace un gesto para que te acerques y te propone un juego.\n\n Él va a elegir 10 números del 0 al 10 que serán los 10 números ganadores.\n Te dará a elegir entre dos números y uno de estos dos números será uno de los 10 ganadores y el otro no.\n Tendrás que elegir uno de esos dos números.\n\n Si aciertas te dará 20 monedas de oro. Si pierdes te dará un puñetazo y perderás 10 puntos de salud.\n Puedes jugar hasta hacerte rico, hasta morir por los golpes o hasta que decidas marcharte.',
   },
   {
     name: 'one punch man',
     'button text': ['REJUGAR?', 'REJUGAR?', 'REJUGAR?'],
     'button functions': [restart, restart, restart],
-    text: '¡Sin experiencia, armas ni vida extra, decides enfrentar al dragón directamente! El dragón te toma por un necio y comienza a reírse de ti. El poder de tu maestro ModBer comienza a acumularse alrededor de tu puño y lo descargas contra la cabeza del dragón. El puñetazo legendario hace que la cabeza del dragón se desintegre y su cuerpo caiga muerto al suelo. ¡Has vencido al malvado dragón! Los aldeanos no se lo pueden creer. Al final tú, el jóven discípulo del gran guerrero ModBer has dado la talla, demostrando tu valía, valentía y honor. El pueblo entero vitorea tus hazañas y se inician los preparativos para una gran fiesta en tu honor. 🎉',
+    text: '¡Sin experiencia, ni armas, ni vida extra, decides enfrentar al dragón directamente!\n\n El dragón te toma por un necio y comienza a reírse de ti.\n\n El poder de tu maestro ModBer comienza a acumularse alrededor de tu puño y lo descargas contra la cabeza del dragón.\n\n El puñetazo legendario hace que la cabeza del dragón se desintegre y su cuerpo caiga muerto al suelo.\n\n ¡Has vencido al malvado dragón!\n\n Los aldeanos no se lo pueden creer. Al final tú, el jóven discípulo del gran guerrero ModBer has dado la talla, demostrando tu valía, valentía y honor.\n\n El pueblo entero vitorea tus hazañas y se inician los preparativos para una gran fiesta en tu honor. 🎉',
   },
 ];
 
@@ -181,11 +182,6 @@ function borrarLocalStorage() {
   logrosDesbloqueados.classList.add('doNotShow');
 }
 /*------------------------------------------------------------------------------------------------------------*/
-if (oro > 500) {
-  ifYouAreRich();
-}
-console.log('oro', oro);
-/*------------------------------------------------------------------------------------------------------------*/
 
 /*****************
  *** FUNCIONES ***
@@ -241,11 +237,15 @@ function showInstructions() {
   if (instructionsPanel.classList.contains('doNotShow')) {
     // Si la tiene, la remueve y agrega la clase 'show'
     instructionsPanel.classList.remove('doNotShow');
+    instructionsButton.classList.remove('notButtonActive');
     instructionsPanel.classList.add('show');
+    instructionsButton.classList.add('buttonActive');
   } else {
     // Si no la tiene, la remueve y agrega la clase 'doNotShow'
     instructionsPanel.classList.remove('show');
+    instructionsButton.classList.remove('buttonActive');
     instructionsPanel.classList.add('doNotShow');
+    instructionsButton.classList.add('notButtonActive');
   }
 }
 
@@ -324,6 +324,9 @@ function sellWeapon() {
   if (inventory.length > 1) {
     oro += 15;
     goldText.innerText = oro;
+    if (oro >= 500) {
+      ifYouAreRich();
+    }
     let soldWeapon = inventory.shift();
     text.innerText = 'Has vendido un/a ' + soldWeapon + '.';
     text.innerText += ' En tu inventario tienes: ' + inventory;
@@ -332,10 +335,10 @@ function sellWeapon() {
     if (inventory.length == 1 && inventory[0] === 'espada') {
       mostrarPopup(
         '/Medios/estadosylogros/espadamaestra.jpeg',
-        `LOGRO DESBLOQUEADO - Tu espada ha comenzado a brillar y se ha vuelto indestructible. Cuenta la leyenda que se trata de la auténtica Espada Maestra. - (Revisa tu lista de logros en la parte inferior del juego).`
+        `LOGRO DESBLOQUEADO\n\n Tu espada ha comenzado a brillar y se ha vuelto indestructible.\n\n Cuenta la leyenda que se trata de la auténtica Espada Maestra.\n\n (Revisa tu lista de logros en la parte inferior del juego).`
       );
       text.innerText +=
-        ' !MILAGRO! Tu espada ha comenzado a brillar y se ha vuelto indestructible. Cuenta la leyenda que se trata de la auténtica Espada Maestra.';
+        ' !MILAGRO!\n\n Tu espada ha comenzado a brillar y se ha vuelto indestructible.\n\n Cuenta la leyenda que se trata de la auténtica Espada Maestra.';
       currentWeaponText.innerText = 'Espada Maestra';
       currentWeaponText.style.color = 'blue';
       unlockAchievements('logro3'); // Llamamos a la función para desbloquear el logro 3
@@ -348,7 +351,7 @@ function sellWeapon() {
 function ifYouAreRich() {
   mostrarPopup(
     '/Medios/estadosylogros/dinero.jpeg',
-    `LOGRO DESBLOQUEADO - Has conseguido más de 500 monedas de oro. - (Revisa tu lista de logros en la parte inferior del juego).`
+    `LOGRO DESBLOQUEADO\n\n Has conseguido más de 500 monedas de oro.\n\n (Revisa tu lista de logros en la parte inferior del juego).`
   );
   unlockAchievements('logro2'); // Llamamos a la función para desbloquear el logro 2
 }
@@ -385,7 +388,7 @@ function goFight() {
 }
 
 function attack() {
-  text.innerText = 'El ' + monsters[fighting].name + ' te ataca.';
+  text.innerText = 'El ' + monsters[fighting].name + ' te ataca.\n\n';
   text.innerText += ' Tú le atacas con tu ' + weapons[currentWeapon].name + '.';
   salud -= getMonsterAttackValue(monsters[fighting].level);
   if (isMonsterHit()) {
@@ -440,6 +443,9 @@ function dodge() {
 
 function defeatMonster() {
   oro += Math.floor(monsters[fighting].level * 6.7);
+  if (oro >= 500) {
+    ifYouAreRich();
+  }
   xp += monsters[fighting].level;
   goldText.innerText = oro;
   xpText.innerText = xp;
@@ -447,13 +453,14 @@ function defeatMonster() {
 }
 
 function lose() {
+  cambiarSrcDeImagen('/Medios/estadosylogros/derrota.jpeg');
   update(locations[5]);
 }
 
 function winGame() {
   mostrarPopup(
     '/Medios/estadosylogros/vencerdragon.jpeg',
-    `LOGRO DESBLOQUEADO - Enhorabuena, derrotaste al dragón. - (Revisa tu lista de logros en la parte inferior del juego).`
+    `LOGRO DESBLOQUEADO\n\n Enhorabuena, derrotaste al dragón.\n\n (Revisa tu lista de logros en la parte inferior del juego).`
   );
   update(locations[6]);
   unlockAchievements('logro1'); // Llamamos a la función para desbloquear el logro 1
@@ -477,8 +484,9 @@ function restart() {
 function alternativeWinGame() {
   mostrarPopup(
     '/Medios/estadosylogros/onepunchman.jpeg',
-    `LOGRO DESBLOQUEADO - Enhorabuena, te has bajado al dragón con un buen puñetazo al estilo Saitama. ¡Eres de lo que no hay! - (Revisa tu lista de logros en la parte inferior del juego).`
+    `LOGRO DESBLOQUEADO\n\n <br> Enhorabuena, te has bajado al dragón con un buen puñetazo al estilo Saitama. ¡Eres un auténtico bestia!\n\n (Revisa tu lista de logros en la parte inferior del juego).`
   );
+  cambiarSrcDeImagen('/Medios/estadosylogros/onepunchman.jpeg');
   update(locations[8]);
   unlockAchievements('logro5'); // Llamamos a la función para desbloquear el logro 5
 }
@@ -489,7 +497,7 @@ function alternativeWinGame() {
 function easterEgg() {
   mostrarPopup(
     '/Medios/localizaciones/azar.jpeg',
-    `NUEVO LOGRO - Has encontrado el Easter Egg JUEGO DE AZAR. - (Revisa tu lista de logros en la parte inferior del juego).`
+    `LOGRO DESBLOQUEADO\n\n Has encontrado el Easter Egg JUEGO DE AZAR.\n\n (Revisa tu lista de logros en la parte inferior del juego).`
   );
   cambiarSrcDeImagen('/Medios/localizaciones/juego-de-azar.jpeg');
   update(locations[7]);
@@ -516,12 +524,15 @@ function pick(guess) {
   }
   if (numbers.includes(guess)) {
     text.innerText +=
-      '¡Correcto! Has demostrado que eres el elegido y el aldeano te ha dado 20 monedas de oro!';
+      '¡Correcto!\n Has demostrado que eres el elegido y el aldeano te ha dado 20 monedas de oro!';
     oro += 20;
     goldText.innerText = oro;
+    if (oro >= 500) {
+      ifYouAreRich();
+    }
   } else {
     text.innerText +=
-      '¡Incorrecto! El aldeano se ha decepcionado y piensa que están todos perdidos tras depositar sus esperanzas en ti. Te arrea una colleja y pierdes 10 de salud.';
+      '¡Incorrecto!\n El aldeano se ha decepcionado y piensa que están todos perdidos tras depositar sus esperanzas en ti. Te arrea una colleja y pierdes 10 de salud.';
     salud -= 10;
     healthText.innerText = salud;
     if (salud <= 0) {

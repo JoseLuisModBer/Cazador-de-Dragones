@@ -197,15 +197,39 @@ button {
   transition: box-shadow 0.3s ease-in-out;
 }
 
+#button1 {
+  background-color: #feac32;
+  background-image: linear-gradient(#fecc4c, #ffac33);
+  border: 3px solid #fe3232;
+}
+#button2 {
+  background-color: #feac32;
+  background-image: linear-gradient(#fecc4c, #ffac33);
+  border: 3px solid #68fe32;
+}
+#button3 {
+  background-color: #feac32;
+  background-image: linear-gradient(#fecc4c, #ffac33);
+  border: 3px solid #3291fe;
+}
+
 button:hover {
   box-shadow: 2px 2px 5px #000;
 }
 
-#instructionsButton {
+.notButtonActive {
   background-color: #32eafe;
   background-image: linear-gradient(#32eafe, #32a9fe);
   border: 3px solid #32eafe;
   font-size: 18px;
+}
+
+.buttonActive {
+  background-color: #32eafe;
+  background-image: linear-gradient(#93f2fd, #9ad4fd);
+  border: 3px solid #32eafe;
+  font-size: 18px;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
 }
 
 #logrosDesbloqueados {
