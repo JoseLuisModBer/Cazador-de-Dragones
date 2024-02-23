@@ -18,9 +18,11 @@
     <main>
       <!-- Popup personalizado -->
 <div id="custom-popup">
-  <img id="popup-image" src="" alt="Popup Image">
-  <p id="popup-text"></p>
-  <button onclick="cerrarPopup()">Aceptar</button>
+  <div class="custom-popup-content-container">
+    <img id="popup-image" src="" alt="Popup Image">
+    <p id="popup-text"></p>
+    <button onclick="cerrarPopup()">Aceptar</button>
+  </div>
 </div>
       
       <div id="game">
@@ -77,7 +79,7 @@
         </div>
         <div id="instructionsPanel" class="doNotShow">
           <h2>Instrucciones y consejos:</h2>
-          <p>Combate y experiencia:</p>
+          <p class="">Combate y experiencia:</p>
           <ul>
             <li>Consigue experiencia venciendo enemigos.</li>
             <li>Cuanta más XP, más plus de daño sumarás a tu arma.</li>
@@ -93,23 +95,30 @@
             <li>Ten cuidado, tus armas pueden romperse y tendrás que reponerlas.</li>
             <li>Cuando un arma se rompe, se equipa automáticamente la anterior en rando de daño.</li>
           </ul>
-          <p>Daño por un golpe de los enemigos:</p>
+          <p>Daño que te hacen los enemigos:</p>
           <ul>
-            <li>Jabalí = -10 </li>
-            <li>Orco = -40</li>
-            <li>Dragón = -68</li>
+            <li>El daño que hacen los enemigos depende del tipo de enemigo. El enemigo menos poderoso es el Jabalí y el más poderoso es el temible Dragón.</li>
+            <li>El daño que te hacen los enemigos varía.</li>
+            <li>Es el resultado de multiplicar el nivel del enemigo * 5 y restarle el resultado de multiplicar un número aleatorio entre 0 y 1 por tu xp.</li>
+            <li>Es decir, cuanto más nivel tenga más te quita pero cuanto más nivel tengas tú más reduces el daño que te hace.</li>
+          </ul>
+          <p>Daño que haces a los enemigos:</p>
+          <ul>
+            <li>El daño que hacs a los enemigos es variable.</li>
+            <li>es el resultado de sumar el poder de tu arma actual + un número aleatorio entre 0 y 1 por tu xp + 1</li>
+            <li>Es decir, cuanta más xp tengas y mejor sea tu arma más poderoso es tu ataque.</li>
           </ul>
           <p>Vida total de los enemigos:</p>
           <ul>
-          <li>Jabalí = 15 </li>
-          <li>Orco = 60</li>
-          <li>Dragón = 300</li>
+            <li>Jabalí = 15 </li>
+            <li>Orco = 60</li>
+            <li>Dragón = 300</li>
           </ul>
           <p>Experiencia tras vencer enemigo:</p>
           <ul>
-          <li>Jabalí = +2XP </li>
-          <li>Orco = +8XP</li>
-          <li>Dragón = ¿?XP</li>
+            <li>Jabalí = +2XP </li>
+            <li>Orco = +8XP</li>
+            <li>Dragón = ¿?XP</li>
           </ul>
         </div>
         <div id="controls">
@@ -120,28 +129,27 @@
 
         <div id="monsterStats">
           <span class="stat"
-            >Nombre del Monstruo: <strong><span id="monsterName"></span></strong
+            >Nombre del Monstruo:&nbsp;<strong><span id="monsterName"></span></strong
           ></span>
           <span class="stat"
-            >Salud: <strong><span id="monsterSalud"></span></strong
+            >Salud:&nbsp;<strong><span id="monsterSalud"></span></strong
           ></span>
         </div>
         <div id="contenedor-fotoytexto">
           <img id="fotoLocalizacionEnTexto" src="/Medios/personajes/protagonista.jpeg" alt="foto" />
           <div id="text">
-            Hola guerrero, bienvenido a "Cazador de Dragones".<br /><br />
+            Hola ADRIÁN, bienvenido a "Cazador de Dragones".<br /><br />
             Un malvado dragón ronda la periferia de la aldea impidiendo que los
             aldeanos salgan.
             Los pocos valientes que lo han intentado se han
             convertido en ceniza en un abrir y cerrar de ojos... Como último
             aprendiz vivo del gran guerrero "ModBer" eres la última esperanza de
             la gente para resolver esta situación.<br /><br />Llevas tiempo sin
-            entrenar y tu equipo es bastante pobre. Quizá deberías de entrenar un
-            poco y hacerte con un buen equipo antes de ir a enfentar al dragón,
-            aunque la decisión es tuya.<br /><br />Te encuentras en la plaza del
+            entrenar y tu equipo es bastante pobre... Quizá deberías de entrenar un
+            poco y hacerte con un buen equipo antes de ir a enfentar al dragón, o no... la decisión es tuya.<br /><br />Te encuentras en la plaza del
             pueblo. Ves un letrero de madera que señala varias direcciones. En él
-            puedes leer: "Tienda", "Cuevas" y "Salida del Pueblo". ¿A dónde
-            quieres ir?<br /><br />NOTA: Utiliza los botones de arriba llevar a cabo tu aventura y exprime el juego hasta encontrar los 5 logros ocultos.
+            puedes leer: "TIENDA", "CUEVAS" y "SALIDA DEL PUEBLO". ¿A dónde
+            te diriges?<br /><br />NOTA: Utiliza los botones de arriba llevar a cabo tu aventura y exprime el juego hasta encontrar los 5 LOGROS OCULTOS.
           </div>
         </div>
       </div>
@@ -160,7 +168,7 @@
       </div>
     </main>
     <footer>
-      <p>&copy; Jose Luis Modroño 2024</p>
+      <p>&copy; <a href="https://www.linkedin.com/in/joseluismodro%C3%B1oberdi%C3%B1as/">Jose Luis Modroño</a> 2024</p>
     </footer>
   </body>
     <script src="./script.js"></script>

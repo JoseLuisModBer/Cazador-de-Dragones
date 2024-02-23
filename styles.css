@@ -1,7 +1,7 @@
 /******************
 *** TIPOGRAFÍAS ***
 ******************/
-@import url('https://fonts.googleapis.com/css2?family=Lobster&family=MedievalSharp&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
 /*************
 *** TEXTOS ***
@@ -12,13 +12,21 @@ h2,
 button,
 .stat,
 p,
-li {
+li,
+a {
   /* font-family: 'Lobster', sans-serif; */
-  font-family: 'Shantell Sans', sans-serif;
+  font-family: 'Comic Neue', 'Shantell Sans', sans-serif;
 }
 
 h2 {
   font-size: 25px;
+}
+
+#instructionsPanel > h2 {
+  text-decoration: underline;
+}
+
+#logrosDesbloqueados > h2 {
   margin: 1rem;
 }
 
@@ -26,8 +34,13 @@ h2 {
 button,
 #text,
 p,
-li {
+li,
+a {
   font-size: 20px;
+}
+
+button {
+  font-weight: bold;
 }
 
 .noSeSepara {
@@ -39,7 +52,7 @@ li {
 *************/
 
 #logo-cazador-de-dragones {
-  width: 70%;
+  width: 50%;
 }
 
 /************************
@@ -51,20 +64,27 @@ li {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 20px;
+  padding: 1rem;
   background-color: #fff;
   border: 1px solid #ccc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   z-index: 1000;
+  border: 8px solid #a64134;
+}
+
+#custom-popup > .custom-popup-content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #popup-image {
   max-width: 300px;
 }
 
-/*********************************************
-*** ARREGLO PARA EL BOTÓN DE INSTRUCCIONES ***
-*********************************************/
+/****************************
+*** ARREGLO INSTRUCCIONES ***
+****************************/
 .doNotShow {
   display: none;
 }
@@ -75,6 +95,10 @@ li {
 #instructionsPanel {
   color: #000;
   padding: 0px 1rem;
+}
+
+#instructionsPanel > p {
+  font-weight: bold;
 }
 
 /**************
@@ -178,7 +202,7 @@ main {
   border: 1px solid #0a0a23;
   padding: 5px;
   color: #ffffff;
-  background-color: #c70d0d;
+  background-color: #a64134;
 }
 
 .stat {
@@ -191,7 +215,7 @@ button {
   color: #0a0a23;
   background-color: #feac32;
   background-image: linear-gradient(#fecc4c, #ffac33);
-  border: 3px solid #feac32;
+  border: 3px solid #a64134;
   border-radius: 5px;
   box-shadow: 0px 0px 0px #000;
   transition: box-shadow 0.3s ease-in-out;
@@ -268,7 +292,8 @@ footer {
   background-color: var(--azulOscuro);
 }
 
-footer > p {
+footer > p,
+footer > p > a {
   font-size: 1rem;
   font-weight: bold;
   color: #fff;
