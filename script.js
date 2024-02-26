@@ -300,7 +300,7 @@ function buyWeapon() {
       currentWeaponText.innerText = weapons[currentWeapon].name;
       console.log('currentWeaponText', currentWeaponText);
       numberOfWeaponsText.innerText = inventory.length;
-      if (weapons[currentWeapon].name == 'palo') {
+      /*       if (weapons[currentWeapon].name == 'palo') {
         cambiarSrcDeImagenArma('/Medios/armas/palo.jpeg');
       } else if (weapons[currentWeapon].name == 'daga') {
         cambiarSrcDeImagenArma('/Medios/armas/daga.jpeg');
@@ -310,7 +310,7 @@ function buyWeapon() {
         cambiarSrcDeImagenArma('/Medios/armas/espada.jpeg');
       } else if (weapons[currentWeapon].name == 'Espada Maestra') {
         cambiarSrcDeImagenArma('/Medios/estadosylogros/espadamaestra.jpeg');
-      }
+      } */
     } else {
       text.innerText = 'No tienes suficiente oro para comprar nuevas armas.';
     }
@@ -384,9 +384,9 @@ function fightDragon() {
 
 function goFight() {
   monsterSalud = monsters[fighting].salud;
-  monsterStats.style.display = 'block';
   monsterName.innerText = monsters[fighting].name;
   monsterSaludText.innerText = monsterSalud;
+  monsterStats.style.display = 'block';
 
   text.innerText = `¡Te enfrentas a un ${monsters[fighting].name}!\n\n`;
 
@@ -394,11 +394,16 @@ function goFight() {
 }
 
 function monsterAttack() {
-  text.innerText = `El ${monsters[fighting].name} te ataca.\n\n`;
+  text.innerText += `El ${monsters[fighting].name} te ataca.\n\n`;
 
   // Mostrar opciones al jugador
   text.innerText += '¿Qué quieres hacer?\n';
-  update(locations[3]);
+  button1.innerText = 'Atacar';
+  button1.onclick = playerAttack;
+  button2.innerText = 'Esquivar';
+  button2.onclick = playerDodge;
+  button3.innerText = 'Huir';
+  button3.onclick = goTown;
 }
 
 function playerAttack() {
