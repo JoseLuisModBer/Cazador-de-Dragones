@@ -525,49 +525,6 @@ function playerDodge() {
 
 /*------------------------------------------ */
 
-/*function attack() {
-  text.innerText = 'El ' + monsters[fighting].name + ' te ataca.\n\n';
-  salud -= getMonsterAttackValue(monsters[fighting].level);
-
-  text.innerText += ' Tú le atacas con tu ' + weapons[currentWeapon].name + '.';
-
-  if (isMonsterHit()) {
-    monsterSalud -=
-      weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
-  } else {
-    text.innerText += ' Has fallado.';
-  }
-  healthText.innerText = salud;
-  monsterSaludText.innerText = monsterSalud;
-
-  if (salud <= 0) {
-    lose();
-  } else if (monsterSalud <= 0) {
-    fighting === 2 ? winGame() : defeatMonster();
-  }
-
-  if (Math.random() <= 0.1 && inventory.length !== 1) {
-    const armaRota = inventory[inventory.length - 1];
-    if (armaRota == 'daga') {
-      mostrarPopup('/Medios/armas/daga-rota.jpg', `Tu ${armaRota} se ha roto.`);
-    } else if (armaRota == 'martillo') {
-      mostrarPopup(
-        '/Medios/armas/martillo-roto.jpg',
-        `Tu ${armaRota} se ha roto.`
-      );
-    } else if (armaRota == 'espada') {
-      mostrarPopup(
-        '/Medios/armas/espada-rota.jpg',
-        `Tu ${armaRota} se ha roto.`
-      );
-    }
-    text.innerText += ' Tu ' + inventory.pop() + ' se ha roto.';
-    currentWeapon--;
-    numberOfWeaponsText.innerText = inventory.length;
-    currentWeaponText.innerText = weapons[currentWeapon].name;
-  }
-}*/
-
 /*El daño que te hace el monstruo el resultado de multiplicar el nivel del enemigo * 5 y restarle el resultado de multiplicar un número aleatorio entre 0 y 1 por tu xp. Es decir, cuanto más nivel tenga más te quita pero cuanto más nivel tengas tú más reduces el daño que te hace. */
 function getMonsterAttackValue(level) {
   const hit = level * 5 - Math.floor(Math.random() * xp);
