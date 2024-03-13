@@ -519,13 +519,19 @@ function playerDodge() {
     healthText.innerText = salud;
     // Mostrar resultado del ataque del monstruo
     text.innerText += `¡El ${monsters[fighting].name} te ha infligido ${monsterHit} puntos de daño!\n\n`;
-    if (salud <= 0) {
-      lose();
-    }
   }
 
-  // Turno del monstruo después del intento de esquiva
-  monsterAttack();
+  if (salud <= 0) {
+    lose();
+  } else {
+    // Verificar si el monstruo ha sido derrotado
+    if (monsterSalud <= 0) {
+      fighting === 2 ? winGame() : defeatMonster();
+    } else {
+      // Turno del monstruo después del ataque del jugador
+      monsterAttack();
+    }
+  }
 }
 
 /*------------------------------------------ */
