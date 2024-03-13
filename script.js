@@ -4,7 +4,7 @@
 
 let xp = 0;
 let salud = 100;
-let oro = 50;
+let oro = 9;
 let currentWeapon = 0;
 let fighting;
 let monsterSalud;
@@ -343,7 +343,8 @@ function sellWeapon() {
       currentWeaponText.innerText = 'Espada Maestra';
       currentWeaponText.style.color = 'blue';
       unlockAchievements('logro3'); // Llamamos a la función para desbloquear el logro 3
-      pudeQueTeHayasPasadoElJuego();
+
+      verificarLogrosDesbloqueados();
     }
   } else {
     text.innerText = 'No puedes vender tu única arma!';
@@ -356,7 +357,8 @@ function ifYouAreRich() {
     `LOGRO DESBLOQUEADO\n\n Has conseguido más de 500 monedas de oro.\n\n (Revisa tu lista de logros en la parte inferior del juego).`
   );
   unlockAchievements('logro2'); // Llamamos a la función para desbloquear el logro 2
-  pudeQueTeHayasPasadoElJuego();
+
+  verificarLogrosDesbloqueados();
 }
 
 function fightSlime() {
@@ -575,7 +577,8 @@ function winGame() {
   );
   update(locations[6]);
   unlockAchievements('logro1'); // Llamamos a la función para desbloquear el logro 1
-  pudeQueTeHayasPasadoElJuego();
+
+  verificarLogrosDesbloqueados();
 }
 
 function restart() {
@@ -601,7 +604,7 @@ function alternativeWinGame() {
   cambiarSrcDeImagen('/Medios/estadosylogros/onepunchman.jpeg');
   update(locations[8]);
   unlockAchievements('logro5'); // Llamamos a la función para desbloquear el logro 5
-  pudeQueTeHayasPasadoElJuego();
+  verificarLogrosDesbloqueados();
 }
 
 /**********************************
@@ -615,7 +618,8 @@ function easterEgg() {
   cambiarSrcDeImagen('/Medios/localizaciones/juego-de-azar.jpeg');
   update(locations[7]);
   unlockAchievements('logro4'); // Llamamos a la función para desbloquear el logro 4
-  pudeQueTeHayasPasadoElJuego();
+
+  verificarLogrosDesbloqueados();
 }
 
 function pickTwo() {
@@ -668,17 +672,14 @@ function verificarLogrosDesbloqueados() {
   );
 
   // Retorna el resultado
-  return todosDesbloqueados;
-}
-
-function pudeQueTeHayasPasadoElJuego() {
-  const todosLogrosDesbloqueados = verificarLogrosDesbloqueados();
-
-  if (todosLogrosDesbloqueados) {
-    // Aquí puedes realizar acciones si todos los logros están desbloqueados
+  console.log('Tienestodosloslogros', todosDesbloqueados);
+  if (todosDesbloqueados) {
     console.log('¡Todos los logros están desbloqueados!');
+    mostrarPopup(
+      '/Medios/estadosylogros/espadamaestra.jpeg',
+      `ENHORABUENA ADRI\n\n HAS SUPERADO EL JUEGO CAZADOR DE DRAGONES.\n\n Apunta las palabras secretas y dáselas a Jose para obtener tus tan ansiadas pistas.`
+    );
   } else {
-    // Aquí puedes realizar acciones si no todos los logros están desbloqueados
     console.log('Aún no has desbloqueado todos los logros.');
   }
 }
