@@ -338,6 +338,48 @@ p {
 /*#####################################################################*/
 
 /*
+#############
+## GALLERY ##
+#############
+*/
+#gallery-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+#gallery-container img {
+  width: 40%;
+}
+
+#gallery-container h1,
+h2,
+h3,
+li,
+p {
+  color: #000;
+}
+
+#gallery-container h1,
+h2 {
+  text-align: center;
+}
+
+#gallery-container .tarjeta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+#gallery-container .tarjeta > .textos-tarjeta {
+  padding-left: 1rem;
+}
+
+/*#####################################################################*/
+
+/*
 #############################
 #### MEDIA QUERY: 700px #####
 #############################

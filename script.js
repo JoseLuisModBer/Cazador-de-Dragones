@@ -1,3 +1,22 @@
+/***************
+ *** GALLERY ***
+ ***************/
+document
+  .getElementById('logo-cazador-de-dragones')
+  .addEventListener('click', function () {
+    let palabraSecretaUsuario = prompt(
+      'Introduce la palabra secreta correcta para poder acceder a la galería de imágenes:'
+    );
+
+    if (palabraSecretaUsuario === 'Fotinchis') {
+      window.location.href = 'gallery.html';
+    } else {
+      location.reload();
+    }
+  });
+
+/*------------------------------------------ */
+
 verificarLogrosDesbloqueados();
 
 /*****************
