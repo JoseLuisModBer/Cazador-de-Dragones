@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css" />
+    <title>RPG - Cazador de Dragones</title>
+  </head>
+  <body>
+    <header>
+    <img
+      id="logo-cazador-de-dragones"
+      src="https://fontmeme.com/permalink/240222/914bbaab9a1d7f5d7955c0aaeaeab256.png"
+      alt="logo-cazador-de-dragones"
+    ></img>
+    </header>
+
+    <main>
+      <div id="game">
+        <div id="win-game-container">
+          <h1>¡ENHORABUENA ADRIÁN!</h1>
+           <img src="../Medios/estadosylogros/wingame.jpg" alt="foto-nerea-y-jose">
+          <p><strong>HAS SUPERADO EL JUEGO CAZADOR DE DRAGONES.</strong></p>
+          <p>Apunta las palabras secretas y dáselas a Jose para obtener tus tan ansiadas pistas.</p>
+          <p>CUIDADO: Si pulsas en el botón de "Volver al juego" tus logros se borrarán! Haz una captura de pantalla de tus palabras secretas antes de cerrar esta página o tendrás que volver a llevar a cabo tu hazaña</p>
+          <ul>
+            <li><strong>Logro 1:</strong> Derrotaste al Dragón | Palabra secreta = <u>CALABAZA</u></li>
+            <li><strong>Logro 2:</strong> Conseguiste 500 de oro | Palabra secreta = <u>AUTÓNOMA</u></li>
+            <li><strong>Logro 3:</strong> Obtuviste la Espada Maestra | Palabra secreta = <u>ESPADÓN</u></li>
+            <li><strong>Logro 4:</strong> Encontraste el easter egg del JUEGO DE AZAR | Palabra secreta: <u>LEUROS</u></li>
+            <li><strong>Logro 5:</strong> Encontraste el easter egg de ONE PUNCH MAN | Palabra secreta: <u>FOTÓN</u></li>
+            <li><strong>Logro 6:</strong> Conseguiste 1000 de oro | Palabra secreta: <u>RICH</u></li>
+            <li><strong>Logro 7:</strong> Conseguiste 500 puntos de salud | Palabra secreta: <u>HEARTH</u></li>
+            <li><strong>Logro 8:</strong> Conseguiste 1000 puntos de salud | Palabra secreta: <u>INMORTAL</u></li>
+            <li><strong>Logro 9:</strong> Conseguiste 50 puntos de experiencia | Palabra secreta: <u>SENTAO</u></li>
+            <li><strong>Logro 10:</strong> Has vencido a 20 enemigos | Palabra secreta: <u>KILLER</u></li>
+          </ul>
+          <button id="volverAlJuego">Volver al juego</button>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; <a href="https://www.linkedin.com/in/joseluismodro%C3%B1oberdi%C3%B1as/">Jose Luis Modroño</a> 2024</p>
+    </footer>
+  </body>
+    <script src="./script.js"></script>
+    <script>
+      // Agregar evento de click al botón
+      document.getElementById('volverAlJuego').addEventListener('click', function() {
+        // Redirigir al usuario a index.html
+        window.location.href = './index.html';
+      });
+    </script>
+  </body>
+</html>

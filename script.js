@@ -1,3 +1,5 @@
+verificarLogrosDesbloqueados();
+
 /*****************
  *** VARIABLES ***
  ****************/
@@ -9,6 +11,7 @@ let currentWeapon = 0;
 let fighting;
 let monsterSalud;
 let inventory = ['palo'];
+let vanquishedMonsters = 0;
 
 const button1 = document.querySelector('#button1');
 const button2 = document.querySelector('#button2');
@@ -100,7 +103,7 @@ const locations = [
     name: 'perder',
     'button text': ['REJUGAR?', 'REJUGAR?', 'REJUGAR?'],
     'button functions': [restart, restart, restart],
-    text: 'Has muerto. ☠️ \n\n La última esperanza para vencer al malvado dragón se ha esfumado con tu deceso y los aldeanos han perdido la esperanza.\n\n Con el paso del tiempo algunos mueren lentamente de inanición, mientras que otros deciden acabar con su vida de formas diversas.\n\n Finalmente el pueblo es devorado por las llamas del dragón y este se marcha en busca de un nuevo pueblo que destruir.',
+    text: 'Has muerto. ☠️ \n\n La última esperanza para vencer al malvado dragón se ha esfumado con tu deceso y los aldeanos han perdido la esperanza.\n\n Con el paso del tiempo algunos mueren lentamente de inanición, mientras que otros deciden acabar con su vida de formas diversas.\n\n Finalmente el pueblo es devorado por las llamas del dragón y este se marcha en busca de un nuevo pueblo que consumir.',
   },
   {
     name: 'ganar',
@@ -142,7 +145,6 @@ borrarLocalStorageButton.onclick = borrarLocalStorage;
 loadAchievements();
 function loadAchievements() {
   const achievements = JSON.parse(localStorage.getItem('achievements')) || {};
-  /*   console.log('achievements', achievements); */
   for (const key in achievements) {
     if (achievements.hasOwnProperty(key) && achievements[key]) {
       const logroElement = document.getElementById(key);
@@ -161,7 +163,7 @@ function loadAchievements() {
 // Desbloquear logros y mostrarlos en la interfaz
 function unlockAchievements(logroId) {
   const logroElement = document.getElementById(logroId);
-  console.log('logroElement', logroElement);
+
   if (logroElement) {
     logroElement.classList.remove('doNotShow'); // Retiramos la clase que evita que se muestre el logro.
     logroElement.classList.add('show'); // Agregamos la clase para mostrar el logro
@@ -219,18 +221,18 @@ function cambiarSrcDeImagen(nuevaUrl) {
   }
 }
 
-/* function cambiarSrcDeImagenArma(nuevaUrl) {
+function cambiarSrcDeImagenArma(nuevaUr2) {
   // Obtener el elemento img por su id
-  var imagen = document.getElementById('fotoArmaActual');
+  var imagenArma = document.getElementById('fotoArmaActual');
 
   // Verificar si el elemento existe
-  if (imagen) {
+  if (imagenArma) {
     // Cambiar la URL del atributo src
-    imagen.src = nuevaUrl;
+    imagenArma.src = nuevaUr2;
   } else {
     console.error('El elemento img no se encontró con el ID proporcionado.');
   }
-} */
+}
 
 /*------------------------------------------------------------------------------------------------------------*/
 
@@ -282,8 +284,25 @@ function buySalud() {
     salud += 10;
     goldText.innerText = oro;
     healthText.innerText = salud;
+    if (salud >= 500 && salud < 1000) {
+      ifYouAreHealthy();
+    } else if (salud >= 1000) {
+      ifYouAreSoHealthy();
+    }
   } else {
     text.innerText = 'No tienes suficiente oro para comprar salud.';
+  }
+}
+
+function actualizarFotoDeArma() {
+  if (weapons[currentWeapon].name == 'palo') {
+    cambiarSrcDeImagenArma('Medios/armas/palo.jpeg');
+  } else if (weapons[currentWeapon].name == 'daga') {
+    cambiarSrcDeImagenArma('Medios/armas/daga.jpeg');
+  } else if (weapons[currentWeapon].name == 'martillo') {
+    cambiarSrcDeImagenArma('Medios/armas/martillo.jpeg');
+  } else if (weapons[currentWeapon].name == 'espada') {
+    cambiarSrcDeImagenArma('Medios/armas/espada.jpeg');
   }
 }
 
@@ -298,35 +317,29 @@ function buyWeapon() {
       inventory.push(newWeapon);
       text.innerText += ' En tu inventario tienes: ' + inventory;
       currentWeaponText.innerText = weapons[currentWeapon].name;
-      console.log('currentWeaponText', currentWeaponText);
       numberOfWeaponsText.innerText = inventory.length;
-      /*       if (weapons[currentWeapon].name == 'palo') {
-        cambiarSrcDeImagenArma('/Medios/armas/palo.jpeg');
-      } else if (weapons[currentWeapon].name == 'daga') {
-        cambiarSrcDeImagenArma('/Medios/armas/daga.jpeg');
-      } else if (weapons[currentWeapon].name == 'martillo') {
-        cambiarSrcDeImagenArma('/Medios/armas/martillo.jpeg');
-      } else if (weapons[currentWeapon].name == 'espada') {
-        cambiarSrcDeImagenArma('/Medios/armas/espada.jpeg');
-      } else if (weapons[currentWeapon].name == 'Espada Maestra') {
-        cambiarSrcDeImagenArma('/Medios/estadosylogros/espadamaestra.jpeg');
-      } */
+      console.log('Arma actual', weapons[currentWeapon].name);
+      actualizarFotoDeArma();
     } else {
       text.innerText = 'No tienes suficiente oro para comprar nuevas armas.';
     }
   } else {
-    text.innerText = 'Has adquirido el arma más poderosa!';
+    text.innerText =
+      'No puedes comprar más armas.\n\n Ya has adquirido el arma más poderosa del tendero!\n\n Pero puedes vender tus armas menos poderosas para ganar oro.';
     button2.innerText = 'Vender arma por 15 de oro';
     button2.onclick = sellWeapon;
   }
+  console.log('Número de armas', inventory.length);
 }
 
 function sellWeapon() {
   if (inventory.length > 1) {
     oro += 15;
     goldText.innerText = oro;
-    if (oro >= 500) {
+    if (oro >= 500 && oro < 1000) {
       ifYouAreRich();
+    } else if (oro >= 1000) {
+      ifYourAreSoRich();
     }
     let soldWeapon = inventory.shift();
     text.innerText = 'Has vendido un/a ' + soldWeapon + '.';
@@ -340,25 +353,116 @@ function sellWeapon() {
       );
       text.innerText +=
         ' !MILAGRO!\n\n Tu espada ha comenzado a brillar y se ha vuelto indestructible.\n\n Cuenta la leyenda que se trata de la auténtica Espada Maestra.';
-      currentWeaponText.innerText = 'Espada Maestra';
+      currentWeaponText.innerText = 'Master Sword';
       currentWeaponText.style.color = 'blue';
-      unlockAchievements('logro3'); // Llamamos a la función para desbloquear el logro 3
 
+      unlockAchievements('logro3'); // Llamamos a la función para desbloquear el logro 3
+      const siTienesLogroEspadaMaestra = document.getElementById('logro3');
+
+      // Ponemos la foto de la espada maestra
+      if (
+        weapons[currentWeapon].name == 'espada' &&
+        siTienesLogroEspadaMaestra.classList.contains('show') &&
+        inventory.length == '1'
+      ) {
+        cambiarSrcDeImagenArma('Medios/estadosylogros/espadamaestra.jpeg');
+      }
       verificarLogrosDesbloqueados();
     }
   } else {
-    text.innerText = 'No puedes vender tu única arma!';
+    text.innerText = '¡No puedes vender tu única arma!';
   }
+  console.log('Número de armas', inventory.length);
 }
 
 function ifYouAreRich() {
-  mostrarPopup(
-    '/Medios/estadosylogros/dinero.jpeg',
-    `LOGRO DESBLOQUEADO\n\n Has conseguido más de 500 monedas de oro.\n\n (Revisa tu lista de logros en la parte inferior del juego).`
-  );
-  unlockAchievements('logro2'); // Llamamos a la función para desbloquear el logro 2
+  const siTienesLogroDinero = document.getElementById('logro2');
+  // Ponemos la foto del logro
+  if (siTienesLogroDinero.classList.contains('show')) {
+    return;
+  } else {
+    mostrarPopup(
+      '/Medios/estadosylogros/dinero.jpeg',
+      `LOGRO DESBLOQUEADO\n\n Has conseguido más de 500 monedas de oro.\n\n (Revisa tu lista de logros en la parte inferior del juego).`
+    );
+    unlockAchievements('logro2'); // Llamamos a la función para desbloquear el logro 2
+    verificarLogrosDesbloqueados();
+  }
+}
 
-  verificarLogrosDesbloqueados();
+function ifYourAreSoRich() {
+  const siTienesLogroDinero2 = document.getElementById('logro6');
+  // Ponemos la foto del logro
+  if (siTienesLogroDinero2.classList.contains('show')) {
+    return;
+  } else {
+    mostrarPopup(
+      '/Medios/estadosylogros/dinero2.jpeg',
+      `LOGRO DESBLOQUEADO\n\n Has conseguido más de 1000 monedas de oro.\n\n (Revisa tu lista de logros en la parte inferior del juego).`
+    );
+    unlockAchievements('logro6'); // Llamamos a la función para desbloquear el logro 6
+    verificarLogrosDesbloqueados();
+  }
+}
+
+function ifYouAreHealthy() {
+  const siTienesLogroVida = document.getElementById('logro7');
+  // Ponemos la foto del logro
+  if (siTienesLogroVida.classList.contains('show')) {
+    return;
+  } else {
+    mostrarPopup(
+      '/Medios/estadosylogros/vida.jpeg',
+      `LOGRO DESBLOQUEADO\n\n Has conseguido más de 500 puntos de salud.\n\n (Revisa tu lista de logros en la parte inferior del juego).`
+    );
+    unlockAchievements('logro7'); // Llamamos a la función para desbloquear el logro 7
+    verificarLogrosDesbloqueados();
+  }
+}
+
+function ifYouAreSoHealthy() {
+  const siTienesLogroVida2 = document.getElementById('logro8');
+  // Ponemos la foto del logro
+  if (siTienesLogroVida2.classList.contains('show')) {
+    return;
+  } else {
+    mostrarPopup(
+      '/Medios/estadosylogros/vida2.jpeg',
+      `LOGRO DESBLOQUEADO\n\n Has conseguido más de 1000 puntos de salud.\n\n (Revisa tu lista de logros en la parte inferior del juego).`
+    );
+    unlockAchievements('logro8'); // Llamamos a la función para desbloquear el logro 8
+    verificarLogrosDesbloqueados();
+  }
+}
+
+function ifYouAreExperienced() {
+  const siTienesLogroxp = document.getElementById('logro9');
+  // Ponemos la foto del logro
+  if (siTienesLogroxp.classList.contains('show')) {
+    return;
+  } else {
+    mostrarPopup(
+      '/Medios/estadosylogros/xp.jpeg',
+      `LOGRO DESBLOQUEADO\n\n Has conseguido más de 50 puntos de xp.\n\n (Revisa tu lista de logros en la parte inferior del juego).`
+    );
+    unlockAchievements('logro9'); // Llamamos a la función para desbloquear el logro 9
+    verificarLogrosDesbloqueados();
+  }
+}
+
+function ifYouAreAKiller() {
+  const siTienesLogroKills = document.getElementById('logro10');
+  // Ponemos la foto del logro
+  if (siTienesLogroKills.classList.contains('show')) {
+    return;
+  } else {
+    mostrarPopup(
+      '/Medios/estadosylogros/killer.jpeg',
+      `LOGRO DESBLOQUEADO\n\n Has conseguido vencer a más de 20 enemigos.\n\n (Revisa tu lista de logros en la parte inferior del juego).`
+    );
+    unlockAchievements('logro10'); // Llamamos a la función para desbloquear el logro 10
+    verificarLogrosDesbloqueados();
+  }
 }
 
 function fightSlime() {
@@ -408,6 +512,28 @@ function monsterAttack() {
   button3.onclick = goTown;
 }
 
+function recalcularSaludMonstruos() {
+  // Factor de aumento de salud basado en la experiencia del jugador
+  const factorAumentoSalud = xp * 0.1; // Por ejemplo, aumenta un 10% por cada 10 de experiencia
+
+  // Recorremos el arreglo de monstruos y actualizamos su salud
+  monsters.forEach((monster) => {
+    // Calculamos la nueva salud del monstruo basada en su nivel y el factor de aumento
+    const nuevaSalud = Math.floor(
+      monster.salud + monster.level * factorAumentoSalud
+    );
+
+    // Actualizamos la salud del monstruo en el arreglo original
+    monster.salud = nuevaSalud;
+  });
+}
+
+function reiniciarSaludMonstruos() {
+  monsters[0].salud = 15;
+  monsters[1].salud = 60;
+  monsters[2].salud = 300;
+}
+
 function playerAttack() {
   // Calcular daño del monstruo
   const monsterHit = getMonsterAttackValue(monsters[fighting].level);
@@ -438,16 +564,19 @@ function playerAttack() {
             '/Medios/armas/daga-rota.jpg',
             `Tu ${armaRota} se ha roto.`
           );
+          cambiarSrcDeImagenArma('Medios/armas/palo.jpeg');
         } else if (armaRota == 'martillo') {
           mostrarPopup(
             '/Medios/armas/martillo-roto.jpg',
             `Tu ${armaRota} se ha roto.`
           );
+          cambiarSrcDeImagenArma('Medios/armas/daga.jpeg');
         } else if (armaRota == 'espada') {
           mostrarPopup(
             '/Medios/armas/espada-rota.jpg',
             `Tu ${armaRota} se ha roto.`
           );
+          cambiarSrcDeImagenArma('Medios/armas/martillo.jpeg');
         }
         text.innerText += ' Tu ' + inventory.pop() + ' se ha roto.';
         currentWeapon--;
@@ -493,16 +622,19 @@ function playerDodge() {
             '/Medios/armas/daga-rota.jpg',
             `Tu ${armaRota} se ha roto.`
           );
+          cambiarSrcDeImagenArma('Medios/armas/palo.jpeg');
         } else if (armaRota == 'martillo') {
           mostrarPopup(
             '/Medios/armas/martillo-roto.jpg',
             `Tu ${armaRota} se ha roto.`
           );
+          cambiarSrcDeImagenArma('Medios/armas/daga.jpeg');
         } else if (armaRota == 'espada') {
           mostrarPopup(
             '/Medios/armas/espada-rota.jpg',
             `Tu ${armaRota} se ha roto.`
           );
+          cambiarSrcDeImagenArma('Medios/armas/martillo.jpeg');
         }
         text.innerText += ' Tu ' + inventory.pop() + ' se ha roto.';
         currentWeapon--;
@@ -541,7 +673,7 @@ function playerDodge() {
 /*El daño que te hace el monstruo el resultado de multiplicar el nivel del enemigo * 5 y restarle el resultado de multiplicar un número aleatorio entre 0 y 1 por tu xp. Es decir, cuanto más nivel tenga más te quita pero cuanto más nivel tengas tú más reduces el daño que te hace. */
 function getMonsterAttackValue(level) {
   const hit = level * 5 - Math.floor(Math.random() * xp);
-  console.log('hit', hit);
+  console.log('Daño de atque del monstruo', hit);
   return hit > 0 ? hit : 0;
 }
 
@@ -550,18 +682,25 @@ function isMonsterHit() {
   return Math.random() > 0.2 || salud < 20;
 }
 
-/* function dodge() {
-  text.innerText = 'Has esquivado el ataque del ' + monsters[fighting].name;
-} */
-
 function defeatMonster() {
   oro += Math.floor(monsters[fighting].level * 6.7);
-  if (oro >= 500) {
+  if (oro >= 500 && oro < 1000) {
     ifYouAreRich();
+  } else if (oro >= 1000) {
+    ifYourAreSoRich();
   }
   xp += monsters[fighting].level;
+  if (xp >= 50) {
+    ifYouAreExperienced();
+  }
+  vanquishedMonsters++;
+  console.log('Enemigos derrotados', vanquishedMonsters);
+  if (vanquishedMonsters >= 20) {
+    ifYouAreAKiller();
+  }
   goldText.innerText = oro;
   xpText.innerText = xp;
+  recalcularSaludMonstruos();
   update(locations[4]);
 }
 
@@ -584,12 +723,19 @@ function winGame() {
 function restart() {
   xp = 0;
   salud = 100;
-  oro = 50;
+  oro = 9;
   currentWeapon = 0;
   inventory = ['palo'];
+  vanquishedMonsters = 0;
   goldText.innerText = oro;
   healthText.innerText = salud;
   xpText.innerText = xp;
+
+  currentWeaponText.innerText = weapons[currentWeapon].name;
+  numberOfWeaponsText.innerText = inventory.length;
+
+  reiniciarSaludMonstruos();
+  cambiarSrcDeImagenArma('Medios/armas/palo.jpeg');
   goTown();
 }
 
@@ -599,7 +745,7 @@ function restart() {
 function alternativeWinGame() {
   mostrarPopup(
     '/Medios/estadosylogros/onepunchman.jpeg',
-    `LOGRO DESBLOQUEADO\n\n <br> Enhorabuena, te has bajado al dragón con un buen puñetazo al estilo Saitama. ¡Eres un auténtico bestia!\n\n (Revisa tu lista de logros en la parte inferior del juego).`
+    `LOGRO DESBLOQUEADO\n\n Enhorabuena, te has bajado al dragón con un buen puñetazo al estilo Saitama. ¡Eres un auténtico bestia!\n\n (Revisa tu lista de logros en la parte inferior del juego).`
   );
   cambiarSrcDeImagen('/Medios/estadosylogros/onepunchman.jpeg');
   update(locations[8]);
@@ -645,12 +791,14 @@ function pick(guess) {
       '¡Correcto!\n Has demostrado que eres el elegido y el aldeano te ha dado 20 monedas de oro!';
     oro += 20;
     goldText.innerText = oro;
-    if (oro >= 500) {
+    if (oro >= 500 && oro < 1000) {
       ifYouAreRich();
+    } else if (oro >= 1000) {
+      ifYourAreSoRich();
     }
   } else {
     text.innerText +=
-      '¡Incorrecto!\n El aldeano se ha decepcionado y piensa que están todos perdidos tras depositar sus esperanzas en ti. Te arrea una colleja y pierdes 10 de salud.';
+      '¡Incorrecto!\n El aldeano se ha decepcionado y piensa que están todos perdidos tras depositar sus esperanzas en ti. Te arrea una colleja y pierdes 10 puntos de salud.';
     salud -= 10;
     healthText.innerText = salud;
     if (salud <= 0) {
@@ -672,14 +820,19 @@ function verificarLogrosDesbloqueados() {
   );
 
   // Retorna el resultado
-  console.log('Tienestodosloslogros', todosDesbloqueados);
-  if (todosDesbloqueados) {
-    console.log('¡Todos los logros están desbloqueados!');
-    mostrarPopup(
-      '/Medios/estadosylogros/espadamaestra.jpeg',
-      `ENHORABUENA ADRI\n\n HAS SUPERADO EL JUEGO CAZADOR DE DRAGONES.\n\n Apunta las palabras secretas y dáselas a Jose para obtener tus tan ansiadas pistas.`
-    );
-  } else {
-    console.log('Aún no has desbloqueado todos los logros.');
+  if (!window.location.href.includes('wingame.html')) {
+    if (todosDesbloqueados) {
+      console.log('¡Todos los logros están desbloqueados!');
+      //Borramos los logros
+      localStorage.removeItem('achievements');
+      logrosDesbloqueados.classList.remove('show');
+      logrosDesbloqueados.classList.add('doNotShow');
+      // Redirigimos a la página winGame
+      window.location.href = './wingame.html';
+    } else {
+      console.log(
+        'Aún no has desbloqueado todos los logros, pero sigue así ;).'
+      );
+    }
   }
 }
