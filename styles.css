@@ -366,6 +366,10 @@ h2 {
   text-align: center;
 }
 
+#gallery-container p {
+  text-align: start;
+}
+
 #gallery-container .tarjeta {
   display: flex;
   flex-direction: row;
@@ -431,6 +435,21 @@ h2 {
 }
 
 @media (max-width: 800px) {
+  /*GALLERY*/
+  #gallery-container .tarjeta {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  #gallery-container img {
+    width: 60%;
+  }
+  #gallery-container h2 {
+    text-decoration: underline;
+  }
+
+  /*GAME*/
   #game,
   #logrosDesbloqueados {
     width: 600px;
