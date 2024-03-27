@@ -112,7 +112,7 @@ const locations = [
       'Pelear contra el orco',
       'Ir a la plaza del pueblo',
     ],
-    'button functions': [fightSlime, fightBeast, goTown],
+    'button functions': [fightJabali, fightOgro, goTown],
     text: 'Has entrado en la cueva pero... ¡está plagada de monstruos!\n\n ¿Decides pelear o huyes de nuevo al pueblo?',
   },
   {
@@ -497,13 +497,13 @@ function ifYouAreAKiller() {
   }
 }
 
-function fightSlime() {
+function fightJabali() {
   cambiarSrcDeImagen('/Medios/personajes/jabali.jpeg');
   fighting = 0;
   goFight();
 }
 
-function fightBeast() {
+function fightOgro() {
   cambiarSrcDeImagen('/Medios/personajes/orco.jpeg');
   fighting = 1;
   goFight();
