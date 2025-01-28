@@ -2,7 +2,7 @@
 
 Cazador de Dragones by ModBer.
 
-- Visita el deployd del proyecto en [Netlify](https://cazador-de-dragones-2.netlify.app/).
+- Visita el deployd del proyecto en [Netlify](https://cazador-de-dragones.netlify.app/).
 
 ## Índice
 
